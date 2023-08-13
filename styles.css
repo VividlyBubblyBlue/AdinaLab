@@ -239,6 +239,7 @@ uibttn {
   border: 2px solid #f2eed5;
   border-radius: 2px;
   position: absolute;
+  transform: translate(-50%, -50%);
   z-index: 2;
 }
 
@@ -246,7 +247,6 @@ uibttn {
   width: 90px;
   height: 90px;
   margin: 10px 10px;
-  /*opacity: 0.6;*/
   visibility: hidden;
 }
 
@@ -256,6 +256,34 @@ uibttn {
   border: 2px solid #f2eed5;
   border-radius: 2px;
   position: absolute;
+  transform: translate(-50%, -50%);
+}
+
+.vibration {
+  animation: vibration 0.1s infinite;
+  -webkit-animation: vibration 0.1s infinite;
+  top: 0;
+  left: 0;
+}
+
+/*진동 애니메이션*/
+
+@keyframes vibration {
+  from {
+    transform: rotate(2deg);
+  }
+  to {
+    transform: rotate(-2deg);
+  }
+}
+
+@-webkit-keyframes vibration {
+  from {
+    transform: rotate(2deg);
+  }
+  to {
+    transform: rotate(-2deg);
+  }
 }
 
 .barsContainer {
@@ -278,7 +306,7 @@ uibttn {
 
 }
 
-/*css 애니메이션*/
+/*타이머 애니메이션*/
 
 @keyframes timerRun {
   0% {

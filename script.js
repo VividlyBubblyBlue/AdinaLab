@@ -62,7 +62,6 @@ window.addEventListener('DOMContentLoaded', function () {
 	})
 	document.querySelector(".restart").addEventListener('click', function () {
 
-
 		document.querySelector(".scoreText").innerText = score;
 		document.querySelector(".timeBar").classList.remove("running");
 		document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
@@ -71,6 +70,7 @@ window.addEventListener('DOMContentLoaded', function () {
 		score = 0;
 		timeLimit = 3;
 		isConjDone = false;
+		resetIcons();
 		bootGame();
 	})
 })
@@ -170,7 +170,13 @@ function isConjuncted() { // 컨정션 확인
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
 		if (keySlots.includes(pressedKey)) {
-
+			document.getElementById(pressedKey).classList.add("vibration");
+			document.getElementById(pressedKey + 'x').classList.add("vibration");
+			setTimeout(function() {
+				document.getElementById(pressedKey).classList.remove("vibration");
+				document.getElementById(pressedKey + 'x').classList.remove("vibration");
+			}, 300);
+			return;
 		}
 		const conj = isConjuncted();
 		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
@@ -182,13 +188,13 @@ function useSlot(pressedKey) {
 			document.getElementById(pressedKey + "x").style.visibility = "visible";
 		}
 		celestialSlots.splice(1, 1);
+		addScore();
 	} else if (pressedKey == 'r') {
 		let tmp = celestialSlots[0];
 		celestialSlots[0] = celestialSlots[1]
 		celestialSlots[1] = tmp;
 		keySlots.push(pressedKey);
 	}
-	addScore();
 }
 
 function restartTimer() {
@@ -207,6 +213,19 @@ function restartTimer() {
 		console.log("종료");
 		gameOver();
 	}, false);
+}
+
+function resetIcons() {
+
+	const c = document.querySelectorAll(".scool img");
+	const s = document.querySelectorAll(".s img")
+
+	for (i = 0; i < s.length; i++) {
+		s[i].src = skillImages[i].src
+	}
+	for (let i = 0; i < c.length; i++) {
+		c[i].style.visibility = "hidden";
+	}
 }
 
 function updateGame() {
