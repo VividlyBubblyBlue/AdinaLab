@@ -54,6 +54,7 @@ let timeLimit = 3;
 let isConjDone = false;
 let isReadingStar;
 let duringGame = false;
+let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
 
@@ -61,7 +62,6 @@ window.addEventListener('DOMContentLoaded', function () {
 		bootGame();
 	})
 	document.querySelector(".restart").addEventListener('click', function () {
-
 		document.querySelector(".scoreText").innerText = score;
 		document.querySelector(".timeBar").classList.remove("running");
 		document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
@@ -97,12 +97,11 @@ function bootGame() {
 	isReadingStar = true;
 	fillSlot(6, function () {
 		document.querySelector(".timeBar").classList.add("running");
+		restartTimer();
 		document.querySelector(".timeBar").addEventListener("animationend", function (e) {
-			console.log("game over");
 			gameOver();
 		}, false);
 		isReadingStar = false;
-		console.log('loading done');
 	})
 }
 
@@ -124,7 +123,6 @@ function drawShapes() {
 		}
 
 	}
-	console.log('drawn');
 }
 
 
@@ -169,24 +167,25 @@ function isConjuncted() { // 컨정션 확인
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
-		if (keySlots.includes(pressedKey)) {
+		const conj = isConjuncted();
+		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
+			celestialSlots.splice(1, 1);
+			pressedKey = 'conj_' + pressedKey;
+			isConjDone = true;
+		} else {
+			document.getElementById(pressedKey + "x").style.visibility = "visible";
+		}
+		if (keySlots.includes(pressedKey)) { // 중복 확인
+			console.log(keySlots);
 			document.getElementById(pressedKey).classList.add("vibration");
 			document.getElementById(pressedKey + 'x').classList.add("vibration");
-			setTimeout(function() {
+			setTimeout(function () {
 				document.getElementById(pressedKey).classList.remove("vibration");
 				document.getElementById(pressedKey + 'x').classList.remove("vibration");
 			}, 300);
 			return;
 		}
-		const conj = isConjuncted();
-		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
-			celestialSlots.splice(1, 1);
-			keySlots.push('conj_' + pressedKey);
-			isConjDone = true;
-		} else {
-			keySlots.push(pressedKey);
-			document.getElementById(pressedKey + "x").style.visibility = "visible";
-		}
+		keySlots.push(pressedKey);
 		celestialSlots.splice(1, 1);
 		addScore();
 	} else if (pressedKey == 'r') {
@@ -199,6 +198,7 @@ function useSlot(pressedKey) {
 
 function restartTimer() {
 	const timer = document.querySelector(".timeBar");
+	let timeNow = 0;
 	try {
 		timer.removeEventListener("animationend", getEventListeners(timer).animationend[0].listner);
 	} catch { //게임오버 이벤트 새로고침
@@ -206,11 +206,14 @@ function restartTimer() {
 	}
 	timer.classList.remove("running");
 	void timer.offsetWidth;
-	timeLimit = timeLimit * 0.8
+	timeLimit = timeLimit * 0.85
+	timeNow = timeLimit * 10
+	interval = setInterval(() => {timeNow--; 
+		document.querySelector(".timeText").innerText = Math.floor(timeNow)/10 + ' / ' + Math.floor(timeLimit*10)/10;}, 100);
 	timer.classList.add("running");
 	timer.style.animationDuration = (timeLimit + 's');
 	timer.addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
-		console.log("종료");
+		clearInterval(interval);
 		gameOver();
 	}, false);
 }
@@ -249,10 +252,7 @@ function updateGame() {
 	if (conj && !isConjDone) { // 컨정션시 아이콘 변경
 		s[conjuctedShape].src = CskillImages[conjuctedShape].src;
 		c[conjuctedShape].style.visibility = "hidden";
-		console.log('conjucted');
-	} else {
-		console.log('not conjucted');
-	}
+	} else {}
 
 	if (celestialSlots.length == 1) { // 별읽기
 		isReadingStar = true;
@@ -262,6 +262,7 @@ function updateGame() {
 			c[i].style.visibility = "hidden";
 		}
 		document.querySelector(".timeBar").style.animationPlayState = "paused";
+		clearInterval(interval);
 		fillSlot(5, function () {
 			restartTimer();
 			isReadingStar = false;

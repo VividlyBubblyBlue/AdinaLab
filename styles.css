@@ -272,6 +272,7 @@ uibttn {
   from {
     transform: rotate(2deg);
   }
+
   to {
     transform: rotate(-2deg);
   }
@@ -281,12 +282,14 @@ uibttn {
   from {
     transform: rotate(2deg);
   }
+
   to {
     transform: rotate(-2deg);
   }
 }
 
 .barsContainer {
+  position: relative;
   margin: 0px 35px;
 }
 
@@ -304,6 +307,14 @@ uibttn {
   -webkit-animation-fill-mode: both;
   animation-duration: 3s;
 
+}
+
+.timeText {
+  position: absolute;
+  top: -5%;
+  width: 100%;
+  font-size: 20px;
+  font-family: 'Teko', sans-serif;
 }
 
 /*타이머 애니메이션*/
@@ -337,6 +348,7 @@ uibttn {
   line-height: 15px;
   width: 100%;
   background-color: aqua;
+  font-size: 6px;
 }
 
 .bonus {
