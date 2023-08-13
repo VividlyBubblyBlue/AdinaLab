@@ -1,5 +1,4 @@
-
-  @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Teko&family=Titillium+Web&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&family=Teko&display=swap');
 
 * {
   margin: 0;
@@ -29,6 +28,80 @@ img {
   object-fit: scale-down;
 }
 
+.game-container {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.root {
+  position: relative;
+}
+
+.gameMessage {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  position: absolute;
+  z-index: 100;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: rgba(238, 228, 218, 0.7);
+}
+
+uibttn {
+  display: inline-block;
+  background: #8f7a66;
+  border-radius: 3px;
+  padding: 0 20px;
+  text-decoration: none;
+  color: #f9f6f2;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 32px;
+  height: 40px;
+  line-height: 40px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.gameMessage.gameStart {
+  display: none;
+}
+
+.gameMessage.gameOver {
+  display: flex;
+}
+
+.gameMessage.gameOver .start {
+  display: none;
+}
+
+.restart {
+  margin-top: 30px;
+  display: none;
+}
+
+.scoreResult {
+  display: none;
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: 32px;
+}
+
+.gameMessage.gameOver .restart,
+.gameMessage.gameOver .scoreResult {
+  display: inline-block;
+}
 
 .celestialBox {
   margin: 30px 0px;
@@ -74,7 +147,7 @@ img {
   position: absolute;
 }
 
-#conjUI img{
+#conjUI img {
   height: 100%;
   width: 100%;
   top: 43%;
@@ -195,7 +268,8 @@ img {
   width: 100%;
   background-color: #9ff792;
 }
-.timeBar.running{
+
+.timeBar.running {
   animation: timerRun linear;
   -webkit-animation: timerRun linear;
   animation-fill-mode: both;
@@ -203,6 +277,7 @@ img {
   animation-duration: 3s;
 
 }
+
 /*css 애니메이션*/
 
 @keyframes timerRun {
@@ -231,7 +306,7 @@ img {
 
 .staminaBar {
   height: 15px;
-  line-height : 15px;
+  line-height: 15px;
   width: 100%;
   background-color: aqua;
 }
@@ -245,7 +320,7 @@ img {
 .point {
   width: 150px;
   height: 40px;
-  line-height : 45px;
+  line-height: 45px;
   position: relative;
   display: flex;
   flex-direction: row;
@@ -256,7 +331,7 @@ img {
 
 .point img {
   height: 40px;
-  width: 40px ;
+  width: 40px;
   position: relative;
   top: 0%;
   left: 0%;
@@ -265,20 +340,6 @@ img {
 
 .scoreText {
   flex: 1;
-}
-
-
-.game-container {
-  background-color: #FFFFFF;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
-  text-align: center;
-}
-
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
 }
 
 footer {

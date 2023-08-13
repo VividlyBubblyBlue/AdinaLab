@@ -53,22 +53,30 @@ let score = 0;
 let timeLimit = 3;
 let isConjDone = false;
 let isReadingStar;
+let duringGame = false;
 
 window.addEventListener('DOMContentLoaded', function () {
-	isReadingStar = true;
-	fillSlot(6, function () {
-		document.querySelector(".timeBar").classList.add("running");
-		document.querySelector(".timeBar").addEventListener("animationend", function (e) {
-			console.log("종료");
-			gameOver();
-		}, false);
-		isReadingStar = false;
-		console.log('done');
+
+	document.querySelector(".start").addEventListener('click', function () {
+		bootGame();
+	})
+	document.querySelector(".restart").addEventListener('click', function () {
+
+
+		document.querySelector(".scoreText").innerText = score;
+		document.querySelector(".timeBar").classList.remove("running");
+		document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
+		celestialSlots = [];
+		keySlots = [];
+		score = 0;
+		timeLimit = 3;
+		isConjDone = false;
+		bootGame();
 	})
 })
 
 window.addEventListener("keydown", (e) => {
-	if (keyList.includes(e.key) && isReadingStar == false) {
+	if (keyList.includes(e.key) && !isReadingStar && duringGame) {
 		useSlot(e.key);
 		updateGame();
 	}
@@ -80,6 +88,22 @@ function sleep(ms) {
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function bootGame() {
+	document.querySelector(".gameMessage").classList.remove("gameOver");
+	document.querySelector(".gameMessage").classList.add("gameStart");
+	duringGame = true;
+	isReadingStar = true;
+	fillSlot(6, function () {
+		document.querySelector(".timeBar").classList.add("running");
+		document.querySelector(".timeBar").addEventListener("animationend", function (e) {
+			console.log("game over");
+			gameOver();
+		}, false);
+		isReadingStar = false;
+		console.log('loading done');
+	})
 }
 
 function addScore() {
@@ -229,6 +253,10 @@ function updateGame() {
 }
 
 function gameOver() {
+	duringGame = false;
+	document.querySelector(".gameMessage").classList.remove("gameStart");
+	document.querySelector(".gameMessage").classList.add("gameOver");
+	document.querySelector(".scoreResult").innerText = '점수:' + score;
 	document.querySelector(".portrait img").src = "./assets/Adina_sad.png";
 }
 
