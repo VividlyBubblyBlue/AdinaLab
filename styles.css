@@ -1,0 +1,287 @@
+
+  @import url('https://fonts.googleapis.com/css2?family=Kanit&family=Teko&family=Titillium+Web&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+div {
+  margin: 0px 0px;
+}
+
+body {
+  font-family: 'Titillium Web', sans-serif;
+  background-color: #F7F7F7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: scale-down;
+}
+
+
+.celestialBox {
+  margin: 30px 0px;
+  position: relative;
+}
+
+.slotContainer.cele {
+  width: 1000px;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+#indicate {
+  top: 0;
+  position: absolute;
+}
+
+.slot {
+  -webkit-perspective: 800px;
+  perspective: 800px;
+  justify-content: center;
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-filter: drop-shadow(0 0 10px #aeaeae);
+  filter: drop-shadow(0 0 10px #AEAEAE);
+}
+
+.cbg {
+  width: 120px;
+  height: 120px;
+  overflow: visible;
+}
+
+.cbg img {
+  width: 120px;
+  height: 120px;
+}
+
+#conjUI {
+  width: 260px;
+  height: 140px;
+  position: absolute;
+}
+
+#conjUI img{
+  height: 100%;
+  width: 100%;
+  top: 43%;
+  left: 47%;
+  opacity: 0.5;
+}
+
+.cindi {
+  width: 120px;
+  height: 120px;
+}
+
+.cindi img {
+  width: 80px;
+  height: 80px;
+
+}
+
+.ERUIBox {
+  margin: 0px 40px;
+  background-color: #ababab;
+  border-radius: 10px;
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  text-align: center;
+}
+
+.portrait {
+  width: 180px;
+  height: 180px;
+  margin-left: 40px;
+  position: relative;
+  background-color: #FFFFFF;
+  outline: 12px solid #FFFFFF;
+  border-radius: 70%;
+  overflow: hidden;
+}
+
+.portrait img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+}
+
+.status {
+  overflow: clip;
+  position: relative;
+}
+
+.slotContainer.skill {
+  text-align: center;
+  margin: 10px 25px;
+  position: relative;
+}
+
+#skillicon {
+  top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+#cooltimer {
+  top: 0;
+  position: absolute;
+  opacity: 0.6;
+  z-index: 2;
+}
+
+
+#arrow {
+  width: 100px;
+}
+
+#arrow img {
+  width: 80px;
+  height: 120px;
+}
+
+.s {
+  width: 90px;
+  height: 90px;
+  margin: 10px 10px;
+}
+
+.s img {
+  width: 90px;
+  height: 90px;
+  border: 2px solid #f2eed5;
+  border-radius: 2px;
+  position: absolute;
+  z-index: 2;
+}
+
+.scool {
+  width: 90px;
+  height: 90px;
+  margin: 10px 10px;
+  /*opacity: 0.6;*/
+  visibility: hidden;
+}
+
+.scool img {
+  width: 90px;
+  height: 90px;
+  border: 2px solid #f2eed5;
+  border-radius: 2px;
+  position: absolute;
+}
+
+.barsContainer {
+  margin: 0px 35px;
+}
+
+.timeBar {
+  margin-bottom: 5px;
+  height: 20px;
+  width: 100%;
+  background-color: #9ff792;
+}
+.timeBar.running{
+  animation: timerRun linear;
+  -webkit-animation: timerRun linear;
+  animation-fill-mode: both;
+  -webkit-animation-fill-mode: both;
+  animation-duration: 3s;
+
+}
+/*css 애니메이션*/
+
+@keyframes timerRun {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0px;
+  }
+
+  ;
+}
+
+@-webkit-keyframes timerRun {
+  0% {
+    width: 100%;
+  }
+
+  100% {
+    width: 0px;
+  }
+
+  ;
+}
+
+.staminaBar {
+  height: 15px;
+  line-height : 15px;
+  width: 100%;
+  background-color: aqua;
+}
+
+.bonus {
+  margin: 20px 0px;
+  height: 90px;
+  background-color: blanchedalmond;
+}
+
+.point {
+  width: 150px;
+  height: 40px;
+  line-height : 45px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: cadetblue;
+  font-size: 36px;
+  font-family: 'Teko', sans-serif;
+}
+
+.point img {
+  height: 40px;
+  width: 40px ;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  transform: unset;
+}
+
+.scoreText {
+  flex: 1;
+}
+
+
+.game-container {
+  background-color: #FFFFFF;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
+  text-align: center;
+}
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+footer {
+  text-align: center;
+  font-size: 12px;
+}
