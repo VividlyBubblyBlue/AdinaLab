@@ -55,11 +55,14 @@ rSFX[1].src = './assets/sfx/conjr.wav'
 const tickSFX = new Audio();
 tickSFX.src = './assets/sfx/tick.wav'
 
-const voiceList = ['start','',''];
-const voiceLines = []
-for (let i = 0; i < 3; i++) {
+const deathSFX = new Audio();
+deathSFX.src ='./assets/sfx/gameover.wav'
+
+const voiceList = ['start1','start2','start3','conq','conw','cone','die1','die2','die3'];
+const voiceLines = [];
+for (let i = 0; i < 9; i++) {
 	voiceLines[i] = new Audio()
-	voiceLines[i].src = './assets/voice/' + voiceList[i] + '.wav'
+	voiceLines[i].src = './assets/voice/' + voiceList[i] + '.mkv'
 }
 // 리소스 로드가 모두 완료된 후 실행
 
@@ -108,9 +111,15 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function playSound(soundType) {
-	soundType.volume = document.getElementById("volume").value / 100;
-	soundType.play();
+function playSound(soundElement) {
+	const soundType = soundElement.src;
+	if (soundType.includes('voice') && !document.getElementById("novoice").checked) {
+		return;
+	} else if (soundType.includes('sfx') && !document.getElementById("nosfx").checked) {
+		return;
+	}
+	soundElement.volume = document.getElementById("volume").value / 100;
+	soundElement.play();
 }
 
 function volumeProgress() {
@@ -127,6 +136,7 @@ function resetGame() {
 	isConjDone = false;
 	document.querySelector(".scoreText").innerText = score;
 	document.querySelector(".timeBar").classList.remove("running");
+	document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 	document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
 	resetIcons();
 }
@@ -137,6 +147,7 @@ function bootGame() {
 	document.querySelector(".gameMessage").classList.add("gameStart");
 	duringGame = true;
 	isReadingStar = true;
+	playSound(voiceLines[getRandomInt(0,3)]);
 	fillSlot(6, function () {
 		restartTimer();
 		isReadingStar = false;
@@ -201,6 +212,7 @@ function isConjuncted() { // 컨정션 확인
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
+		document.getElementById("conjUI").src = "./assets/conjUI.png"
 		const conj = isConjuncted();
 		const ableConjCheck = document.getElementsByName("noc");
 		const ableConj = [];
@@ -223,12 +235,12 @@ function useSlot(pressedKey) {
 				return;
 			}
 			celestialSlots.splice(1, 1);
+			playSound(voiceLines[3 + keyList.indexOf(pressedKey)])
+			document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 			pressedKey = 'conj_' + pressedKey;
 			isConjDone = true;
-		} else {
-			document.getElementById(pressedKey + "x").style.visibility = "visible";
 		}
-		if (keySlots.includes(pressedKey)) { // 중복 확인
+		if (keySlots.includes(pressedKey) && !document.getElementById("nolock").checked) { // 중복 확인
 			vibrateSkill(pressedKey);
 			return;
 		}
@@ -246,7 +258,14 @@ function useSlot(pressedKey) {
 		celestialSlots[0] = celestialSlots[1]
 		celestialSlots[1] = tmp;
 		keySlots.push(pressedKey);
-		playSound(rSFX[+isConjuncted()]);
+		if (+(isConjuncted()&&!isConjDone)){
+			document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
+			console.log(document.querySelector("#conjUI img").src)
+			playSound(rSFX[1]);
+		} else {
+			document.querySelector("#conjUI img").src= "./assets/conjUI.png"
+			playSound(rSFX[0]);
+		}
 	}
 }
 
@@ -261,11 +280,11 @@ function addScore() {
 function restartTimer() {
 	const timer = document.querySelector(".timeBar");
 	let timeNow = 0;
-	if (document.getElementById("notimer").checked) {
+	if (document.getElementById("notimer").checked) { //타이머 체크
 		return;
 	}
 	timer.classList.remove("running");
-	timeLimit = timeLimit * 0.85
+	timeLimit = (timeLimit -0.6) * 0.9 + 0.6
 	timeNow = timeLimit * 10
 	if (interval != undefined) {
 		clearInterval(interval);
@@ -315,7 +334,7 @@ function updateGame() {
 	const conjuctedShape = orbs.indexOf(celestialSlots[1]);
 
 	for (i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
-		if (keySlots[i] != 'r'){
+		if (keySlots[i] != 'r' && !document.getElementById("nolock").checked ){
 			try{
 				document.getElementById(keySlots[i] + "x").style.visibility = "visible";
 			} catch{}
@@ -357,6 +376,8 @@ function gameOver() {
 	if (document.getElementById("notimer").checked == true) {
 		return;
 	}
+	playSound(deathSFX);
+	playSound(voiceLines[getRandomInt(6,9)]);
 	duringGame = false;
 	document.querySelector(".gameMessage").classList.remove("gameStart");
 	document.querySelector(".gameMessage").classList.add("gameOver");

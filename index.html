@@ -10,6 +10,16 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!--
+  <div>
+  <details>
+    <summary>아디나 기초 설명</summary>
+    <div>
+      테스트
+    </div>
+  </details>
+  -->
+</div>
   <div class="game-container">
     <h1>바우게 연구소</h1>
     <script src="script.js"></script>
@@ -31,6 +41,12 @@
       <div class="rcheckboxs">
         <label for="volume">볼륨</label>
         <input type="range" id="volume" name="volume" value="100" oninput="volumeProgress()">
+        <div>
+          <input type="checkbox" id="novoice" name="nos" value="voice" checked>
+          <label for="nosunc">보이스</label>
+          <input type="checkbox" id="nosfx" name="nos" value="sfx" checked>
+          <label for="nomoonc">효과음</label>
+        </div>
       </div>
     </div>
     <div class="root" >
@@ -47,7 +63,7 @@
         <div class="slotContainer cele" id="background">
           <div class="slot cbg" id="cbg1"><img alt="white circle" src="./assets/Wcircle.png"></div>
           <div class="slot cbg" id="arrow"><img alt="arrow" src="./assets/sidearrow.png"></div>
-          <div class="slot cbg" id="conjUI"><img alt="purple thingy" src="./assets/conjUI.png"></div>
+          <div class="slot cbg" id="conjUI"><img id="" alt="purple thingy" src="./assets/conjUI.png"></div>
           <div class="slot cbg" id="cbg2"><img alt="black circle" src="./assets/circle.png"></div>
           <div class="slot cbg" id="cbg3"></div>
           <div class="slot cbg" id="cbg4"></div>
@@ -94,6 +110,7 @@
         <div class="rightContainer">
           <div class="bonus">
             <button class="restart" id="reset"><img src="assets/rootkit.png"></button>
+            <div>리셋</div>
           </div>
           <div class="point">
             <img alt="credit" src="./assets/credit.png">

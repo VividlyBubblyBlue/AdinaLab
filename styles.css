@@ -58,6 +58,7 @@ h1 {
   -webkit-appearance: none;
   appearance: none; 
   width: 100%;
+  margin-bottom: 20px;
   cursor: pointer;
   outline: none;
   border-radius: 15px;
@@ -70,7 +71,7 @@ h1 {
   height: 35px;
   width: 35px;
   background: transparent;
-  background-image: url("./assets/empress.png");
+  background-image: url("./assets/themoon.png");
   background-size: cover;
   border-radius: 50%;
   transition: .2s ease-in-out
@@ -419,7 +420,7 @@ uibttn.restart {
 .bonus {
   margin: 20px 0px;
   height: 90px;
-  background-color: blanchedalmond;
+  background-color: #ccc;
 }
 
 .bonus button {
@@ -430,8 +431,9 @@ uibttn.restart {
 }
 
 .bonus img {
-  height: 80px;
-  width: 80px;
+  height: 60px;
+  width: 60px;
+  border: 1px;
   position: relative;
   top: 0%;
   left: 0%;
