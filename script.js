@@ -101,6 +101,7 @@ window.addEventListener("keydown", (e) => {
 		useSlot(e.key);
 		updateGame();
 	}
+	//if (e.key=)
 });
 
 function sleep(ms) {
@@ -177,19 +178,23 @@ async function fillSlot(amount, callback) { //칸 채우기
 		let occurrences = {};
 		let checkedOrb = [];
 		let availableOrb = [];
-		checkedOrb.push(celestialSlots[indexi - 1]);
+		checkedOrb.push(celestialSlots[indexi - 1]); //연속된 칸에 같은천체가 올수없음
 		if (indexi >= 3 && celestialSlots[indexi - 3] == celestialSlots[indexi - 1]) {
 			checkedOrb.push(celestialSlots[indexi - 2]);
 		}
 		celestialSlots.forEach(item => {
 			occurrences[item] = (occurrences[item] || 0) + 1;
 		});
-		celestialSlots.forEach(item => {
+		celestialSlots.forEach(item => { //한 천체가 2개 이상 나올수 없음
 			if (occurrences[item] >= 2 && !checkedOrb.includes(item)) {
 				checkedOrb.push(item);
 			}
 		});
-		availableOrb = orbs.filter(item => !checkedOrb.includes(item));
+		if (indexi == 4 && !celestialSlots.includes(celestialSlots[0])) { //저장칸에 있는 천체는 적어도 5번칸에는 반드시 나와야함
+			availableOrb = celestialSlots[0]
+		} else {
+			availableOrb = orbs.filter(item => !checkedOrb.includes(item));
+		}
 		//천체 선정
 		const randomOrbIndex = getRandomInt(0, availableOrb.length);
 		const randomOrb = availableOrb[randomOrbIndex];
@@ -267,6 +272,10 @@ function useSlot(pressedKey) {
 			playSound(rSFX[0]);
 		}
 	}
+}
+
+function changeSlot(pressedKey) {
+
 }
 
 function addScore() {
