@@ -74,9 +74,10 @@ let duringGame = false;
 let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
-	document.querySelector(".timeBar").addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
+	volumeProgress()
+	/*document.querySelector(".timeBar").addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
 		clearInterval(interval);
-		gameOver();})
+		gameOver();})*/
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -107,6 +108,17 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function playSound(soundType) {
+	soundType.volume = document.getElementById("volume").value / 100;
+	soundType.play();
+}
+
+function volumeProgress() {
+	const sElement = document.getElementById("volume")
+	const sValue = sElement.value;
+  sElement.style.background = `linear-gradient(to right, #0EB4FC ${sValue}%, #ccc ${sValue}%)`;
+}
+
 function resetGame() {
 	celestialSlots = [];
 	keySlots = [];
@@ -130,11 +142,6 @@ function bootGame() {
 		isReadingStar = false;
 		document.getElementById("reset").style.display = "inline-block";
 	})
-}
-
-function addScore() {
-	score++;
-	document.querySelector(".scoreText").innerText = score*10;
 }
 
 function drawShapes() {
@@ -209,7 +216,7 @@ function useSlot(pressedKey) {
 				vibrateSkill(pressedKey);
 				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // 이건 좀;
 				chk.classList.add("yellowHighlight");
-				tickSFX.play();
+				playSound(tickSFX);
 				setTimeout(function () {
 					chk.classList.remove("yellowHighlight");
 				}, 500);
@@ -230,7 +237,7 @@ function useSlot(pressedKey) {
 		} else {
 			pressedKeySFX = pressedKey
 		}
-		skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)].play();
+		playSound(skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)]);
 		keySlots.push(pressedKey);
 		celestialSlots.splice(1, 1);
 		addScore();
@@ -239,17 +246,24 @@ function useSlot(pressedKey) {
 		celestialSlots[0] = celestialSlots[1]
 		celestialSlots[1] = tmp;
 		keySlots.push(pressedKey);
-		rSFX[+isConjuncted()].play();
+		playSound(rSFX[+isConjuncted()]);
 	}
 }
+
+function addScore() {
+	if (!document.getElementById("notimer").checked) {
+		score++;
+		document.querySelector(".scoreText").innerText = score*10;
+	}
+}
+
 
 function restartTimer() {
 	const timer = document.querySelector(".timeBar");
 	let timeNow = 0;
-	if (document.getElementById("notimer").checked == true) {
+	if (document.getElementById("notimer").checked) {
 		return;
 	}
-	//timer.removeEventListener("animationend", getEventListeners(timer).animationend[0].listner);
 	timer.classList.remove("running");
 	timeLimit = timeLimit * 0.85
 	timeNow = timeLimit * 10
@@ -257,7 +271,11 @@ function restartTimer() {
 		clearInterval(interval);
 	}
 	interval = setInterval(() => {timeNow--;
-		if (timeNow <= 0) {console.log(interval); clearInterval(interval);}
+		if (timeNow <= 0) {
+			 gameOver(); 
+			 clearInterval(interval);
+			return;
+		}
 		document.querySelector(".timeText").innerText = Math.floor(timeNow)/10 + ' / ' + Math.floor(timeLimit*10)/10;
 		}, 100);
 	void timer.offsetWidth;
@@ -282,7 +300,7 @@ function resetIcons() {
 function vibrateSkill(skill) {
 	document.getElementById(skill).classList.add("vibration");
 	document.getElementById(skill + 'x').classList.add("vibration");
-	tickSFX.play();
+	playSound(tickSFX);
 	setTimeout(function () {
 		document.getElementById(skill).classList.remove("vibration");
 		document.getElementById(skill + 'x').classList.remove("vibration");

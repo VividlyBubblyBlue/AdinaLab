@@ -54,6 +54,28 @@ h1 {
   align-self: flex-end;
 }
 
+#volume {
+  -webkit-appearance: none;
+  appearance: none; 
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 15px;
+  height: 6px;
+  background: #ccc;
+}
+#volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none; 
+  height: 35px;
+  width: 35px;
+  background: transparent;
+  background-image: url("./assets/empress.png");
+  background-size: cover;
+  border-radius: 50%;
+  transition: .2s ease-in-out
+}
+
 .root {
   position: relative;
 }

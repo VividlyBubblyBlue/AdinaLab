@@ -4,26 +4,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>buffKiaraPlz</title>
+  <link rel="icon" href="./assets/Adina_wat.png"/>
+  <link rel="apple-touch-icon" href="./assets/Adina_wat.png"/>
+  <title>바우게연구소</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
   <div class="game-container">
     <h1>바우게 연구소</h1>
     <script src="script.js"></script>
     <div>
       <div class="lcheckboxs">
-        <input type="checkbox" id="notimer" name="notimer">
-        <label for="notimer">연습 모드(타이머X)</label>
+        <label for="notimer">연습 모드: 타이머X</label>
+        <input type="checkbox" id="notimer" name="notimer" style= "margin-bottom: 20px;">
+        <label for="nolock">스킬잠김X</label>
+        <input type="checkbox" id="nolock" name="nolock" style= "margin-bottom: 20px;">
+        <div>
+          <input type="checkbox" id="nosunc" name="noc" value="q" checked>
+          <label for="nosunc">해컨(Q)</label>
+          <input type="checkbox" id="nomoonc" name="noc" value="w" checked>
+          <label for="nomoonc">달컨(W)</label>
+          <input type="checkbox" id="nostarc" name="noc" value="e" checked>
+          <label for="nostarc">별컨(E)</label>
+        </div>
       </div>
       <div class="rcheckboxs">
-        <input type="checkbox" id="nosunc" name="noc" value="q" checked>
-        <label for="nosunc">해컨(Q)</label>
-        <input type="checkbox" id="nomoonc" name="noc" value="w" checked>
-        <label for="nomoonc">달컨(W)</label>
-        <input type="checkbox" id="nostarc" name="noc" value="e" checked>
-        <label for="nostarc">별컨(E)</label>
+        <label for="volume">볼륨</label>
+        <input type="range" id="volume" name="volume" value="100" oninput="volumeProgress()">
       </div>
     </div>
     <div class="root" >
