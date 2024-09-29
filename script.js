@@ -1,11 +1,3 @@
-const numCircles = 7;
-const circleRadius = 60;
-const circleSpacing = 5;
-
-const numSquares = 4;
-const squareSize = 80;
-const squareSpacing = 10;
-
 const orbs = ['sun', 'moon', 'star'];
 const keyList = ['q', 'w', 'e', 'r', 'conj'];
 
@@ -34,7 +26,6 @@ skillImages[3] = new Image();
 skillImages[3].src = './assets/Adina_R.webp';
 
 const CskillImages = [];
-
 CskillImages[0] = new Image();
 CskillImages[0].src = './assets/Adina_QC.webp';
 CskillImages[1] = new Image();
@@ -44,7 +35,33 @@ CskillImages[2].src = './assets/Adina_EC.webp';
 CskillImages[3] = new Image();
 CskillImages[3].src = './assets/Adina_R.webp';
 
-// 이미지 로드가 모두 완료된 후 실행
+const nonExistSFX = ["sunr","moonr","starr"];
+const skillSFX = Array.from(Array(3), () => new Array(5));
+for (let i = 0; i < 3; i++) {
+	for (let j = 0; j < 5; j++) {
+		let fileName = orbs[i] + keyList[j]
+		if (!nonExistSFX.includes(fileName)){
+			skillSFX[i][j] = new Audio();
+			skillSFX[i][j].src = './assets/sfx/' + fileName + '.wav'
+		}
+	}
+}
+const rSFX = [];
+rSFX[0] = new Audio();
+rSFX[0].src = './assets/sfx/r.wav'
+rSFX[1] = new Audio();
+rSFX[1].src = './assets/sfx/conjr.wav'
+
+const tickSFX = new Audio();
+tickSFX.src = './assets/sfx/tick.wav'
+
+const voiceList = ['start','',''];
+const voiceLines = []
+for (let i = 0; i < 3; i++) {
+	voiceLines[i] = new Audio()
+	voiceLines[i].src = './assets/voice/' + voiceList[i] + '.wav'
+}
+// 리소스 로드가 모두 완료된 후 실행
 
 var celestialSlots = [];
 var keySlots = [];
@@ -57,20 +74,20 @@ let duringGame = false;
 let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
-
+	document.querySelector(".timeBar").addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
+		clearInterval(interval);
+		gameOver();})
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
 	document.querySelector(".restart").addEventListener('click', function () {
-		document.querySelector(".scoreText").innerText = score;
-		document.querySelector(".timeBar").classList.remove("running");
-		document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
-		celestialSlots = [];
-		keySlots = [];
-		score = 0;
-		timeLimit = 3;
-		isConjDone = false;
-		resetIcons();
+		resetGame();
+		bootGame();
+	})
+	document.getElementById("reset").addEventListener('click', function () { //통일성없는똥같은코드
+		clearInterval(interval);
+		gameOver();
+		resetGame();
 		bootGame();
 	})
 })
@@ -90,28 +107,37 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function resetGame() {
+	celestialSlots = [];
+	keySlots = [];
+	score = 0;
+	timeLimit = 3;
+	isConjDone = false;
+	document.querySelector(".scoreText").innerText = score;
+	document.querySelector(".timeBar").classList.remove("running");
+	document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
+	resetIcons();
+}
+
 function bootGame() {
+	document.getElementById("reset").style.display = "none";
 	document.querySelector(".gameMessage").classList.remove("gameOver");
 	document.querySelector(".gameMessage").classList.add("gameStart");
 	duringGame = true;
 	isReadingStar = true;
 	fillSlot(6, function () {
-		document.querySelector(".timeBar").classList.add("running");
 		restartTimer();
-		document.querySelector(".timeBar").addEventListener("animationend", function (e) {
-			gameOver();
-		}, false);
 		isReadingStar = false;
+		document.getElementById("reset").style.display = "inline-block";
 	})
 }
 
 function addScore() {
 	score++;
-	document.querySelector(".scoreText").innerText = score;
+	document.querySelector(".scoreText").innerText = score*10;
 }
 
 function drawShapes() {
-
 	for (let i = 0; i < 6; i++) {
 		const fileName = 'c' + (i + 1);
 		const updatingSRC = document.getElementById(fileName);
@@ -126,10 +152,10 @@ function drawShapes() {
 }
 
 
-async function fillSlot(amount, callback) { //별읽기
+async function fillSlot(amount, callback) { //칸 채우기
 	for (let i = 0; i < amount; i++) {
 		//불가능한 천체 목록 제작
-		let indexi = celestialSlots.length; //길이가 3일때 현재 채워야 하는 칸은 4, 배열은 0부터 시작하므로 3
+		let indexi = celestialSlots.length; //채워야하는칸 = 길이
 		let occurrences = {};
 		let checkedOrb = [];
 		let availableOrb = [];
@@ -156,6 +182,7 @@ async function fillSlot(amount, callback) { //별읽기
 	callback();
 }
 
+
 function isConjuncted() { // 컨정션 확인
 	if (celestialSlots[1] == celestialSlots[2] && celestialSlots[1] != undefined) {
 		return true;
@@ -168,7 +195,26 @@ function isConjuncted() { // 컨정션 확인
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
 		const conj = isConjuncted();
+		const ableConjCheck = document.getElementsByName("noc");
+		const ableConj = [];
+		for (i=0; i<ableConjCheck.length; i++) { //체크박스 확인
+			if (ableConjCheck[i].checked == true) {
+				ableConj.push(ableConjCheck[i].value);
+			}
+		}
+		let pressedKeySFX;
+
 		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
+			if (!ableConj.includes(pressedKey)) { //체크박스로 비활성화된 컨정션 확인
+				vibrateSkill(pressedKey);
+				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // 이건 좀;
+				chk.classList.add("yellowHighlight");
+				tickSFX.play();
+				setTimeout(function () {
+					chk.classList.remove("yellowHighlight");
+				}, 500);
+				return;
+			}
 			celestialSlots.splice(1, 1);
 			pressedKey = 'conj_' + pressedKey;
 			isConjDone = true;
@@ -176,15 +222,15 @@ function useSlot(pressedKey) {
 			document.getElementById(pressedKey + "x").style.visibility = "visible";
 		}
 		if (keySlots.includes(pressedKey)) { // 중복 확인
-			console.log(keySlots);
-			document.getElementById(pressedKey).classList.add("vibration");
-			document.getElementById(pressedKey + 'x').classList.add("vibration");
-			setTimeout(function () {
-				document.getElementById(pressedKey).classList.remove("vibration");
-				document.getElementById(pressedKey + 'x').classList.remove("vibration");
-			}, 300);
+			vibrateSkill(pressedKey);
 			return;
 		}
+		if (conj) {
+			pressedKeySFX = 'conj'
+		} else {
+			pressedKeySFX = pressedKey
+		}
+		skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)].play();
 		keySlots.push(pressedKey);
 		celestialSlots.splice(1, 1);
 		addScore();
@@ -193,29 +239,31 @@ function useSlot(pressedKey) {
 		celestialSlots[0] = celestialSlots[1]
 		celestialSlots[1] = tmp;
 		keySlots.push(pressedKey);
+		rSFX[+isConjuncted()].play();
 	}
 }
 
 function restartTimer() {
 	const timer = document.querySelector(".timeBar");
 	let timeNow = 0;
-	try {
-		timer.removeEventListener("animationend", getEventListeners(timer).animationend[0].listner);
-	} catch { //게임오버 이벤트 새로고침
-
+	if (document.getElementById("notimer").checked == true) {
+		return;
 	}
+	//timer.removeEventListener("animationend", getEventListeners(timer).animationend[0].listner);
 	timer.classList.remove("running");
-	void timer.offsetWidth;
 	timeLimit = timeLimit * 0.85
 	timeNow = timeLimit * 10
-	interval = setInterval(() => {timeNow--; 
-		document.querySelector(".timeText").innerText = Math.floor(timeNow)/10 + ' / ' + Math.floor(timeLimit*10)/10;}, 100);
-	timer.classList.add("running");
-	timer.style.animationDuration = (timeLimit + 's');
-	timer.addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
+	if (interval != undefined) {
 		clearInterval(interval);
-		gameOver();
-	}, false);
+	}
+	interval = setInterval(() => {timeNow--;
+		if (timeNow <= 0) {console.log(interval); clearInterval(interval);}
+		document.querySelector(".timeText").innerText = Math.floor(timeNow)/10 + ' / ' + Math.floor(timeLimit*10)/10;
+		}, 100);
+	void timer.offsetWidth;
+	timer.classList.add("running");
+	timer.style.animationPlayState = "running";
+	timer.style.animationDuration = (timeLimit + 's');
 }
 
 function resetIcons() {
@@ -231,8 +279,17 @@ function resetIcons() {
 	}
 }
 
-function updateGame() {
+function vibrateSkill(skill) {
+	document.getElementById(skill).classList.add("vibration");
+	document.getElementById(skill + 'x').classList.add("vibration");
+	tickSFX.play();
+	setTimeout(function () {
+		document.getElementById(skill).classList.remove("vibration");
+		document.getElementById(skill + 'x').classList.remove("vibration");
+	}, 300);
+}
 
+function updateGame() {
 	const conj = isConjuncted();
 	const c = document.querySelectorAll(".scool img");
 	const s = document.querySelectorAll(".s img")
@@ -240,9 +297,11 @@ function updateGame() {
 	const conjuctedShape = orbs.indexOf(celestialSlots[1]);
 
 	for (i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
-		try {
-			document.getElementById(keySlots[i] + "x").style.visibility = "visible";
-		} catch {}
+		if (keySlots[i] != 'r'){
+			try{
+				document.getElementById(keySlots[i] + "x").style.visibility = "visible";
+			} catch{}
+		}
 	}
 
 	for (i = 0; i < s.length; i++) {
@@ -252,35 +311,52 @@ function updateGame() {
 	if (conj && !isConjDone) { // 컨정션시 아이콘 변경
 		s[conjuctedShape].src = CskillImages[conjuctedShape].src;
 		c[conjuctedShape].style.visibility = "hidden";
-	} else {}
+	} 
 
 	if (celestialSlots.length == 1) { // 별읽기
 		isReadingStar = true;
 		isConjDone = false;
 		keySlots = [];
 		for (let i = 0; i < c.length; i++) {
-			c[i].style.visibility = "hidden";
+			c[i].style.visibility = "visible";
 		}
 		document.querySelector(".timeBar").style.animationPlayState = "paused";
+		document.getElementById("reset").style.display = "none";
 		clearInterval(interval);
 		fillSlot(5, function () {
+			for (let i = 0; i < c.length; i++) {
+				c[i].style.visibility = "hidden";
+			}
 			restartTimer();
 			isReadingStar = false;
-			document.querySelector(".timeBar").style.animationPlayState = "running";
+			document.getElementById("reset").style.display = "inline-block";
 		});
 	}
 	drawShapes();
 }
 
 function gameOver() {
+	if (document.getElementById("notimer").checked == true) {
+		return;
+	}
 	duringGame = false;
 	document.querySelector(".gameMessage").classList.remove("gameStart");
 	document.querySelector(".gameMessage").classList.add("gameOver");
-	document.querySelector(".scoreResult").innerText = '점수:' + score;
-	document.querySelector(".portrait img").src = "./assets/Adina_sad.png";
+	document.querySelector(".scoreResult").innerText = '점수:' + score*10;
+	document.querySelector(".portrait img").src = "./assets/Adina_wat.png";
 }
 
 /*
+
+const numCircles = 7;
+const circleRadius = 60;
+const circleSpacing = 5;
+
+const numSquares = 4;
+const squareSize = 80;
+const squareSpacing = 10;
+
+
 function drawShapes() { // 버튼 셋업과 좌표 선정
 	const canvasWidth = canvas.width;
 	const canvasCenter = canvasWidth / 2;

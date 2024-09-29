@@ -30,6 +30,9 @@ img {
 
 .game-container {
   background-color: #FFFFFF;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
   padding: 2rem;
   border-radius: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
@@ -39,6 +42,16 @@ img {
 h1 {
   font-size: 2rem;
   margin-bottom: 1rem;
+}
+
+.lcheckboxs {
+  float: left;
+  align-self: flex-start;
+}
+
+.rcheckboxs {
+  float: right;
+  align-self: flex-end;
 }
 
 .root {
@@ -87,7 +100,7 @@ uibttn {
   display: none;
 }
 
-.restart {
+uibttn.restart {
   margin-top: 30px;
   display: none;
 }
@@ -288,6 +301,36 @@ uibttn {
   }
 }
 
+.yellowHighlight {
+  animation: yellowHighlight 0.5s;
+}
+
+/*노랑 하이라이트*/
+
+@keyframes yellowHighlight {
+  0% {
+    color : #000000;
+  }
+  10% {
+    color : #f7ea00
+  }
+  100% {
+    color : #000000;
+  }
+}
+
+@-webkit-keyframes yellowHighlight {
+  0% {
+    color : #000000;
+  }
+  50% {
+    color : #f7ea00
+  }
+  100% {
+    color : #000000;
+  }
+}
+
 .barsContainer {
   position: relative;
   margin: 0px 35px;
@@ -355,6 +398,22 @@ uibttn {
   margin: 20px 0px;
   height: 90px;
   background-color: blanchedalmond;
+}
+
+.bonus button {
+  display: none;
+  border: 0px;
+  background-color: rgba(0,0,0,0);
+  z-index: 2;
+}
+
+.bonus img {
+  height: 80px;
+  width: 80px;
+  position: relative;
+  top: 0%;
+  left: 0%;
+  transform: unset;
 }
 
 .point {

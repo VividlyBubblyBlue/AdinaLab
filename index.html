@@ -12,12 +12,26 @@
   <div class="game-container">
     <h1>바우게 연구소</h1>
     <script src="script.js"></script>
-    <div class="root">
+    <div>
+      <div class="lcheckboxs">
+        <input type="checkbox" id="notimer" name="notimer">
+        <label for="notimer">연습 모드(타이머X)</label>
+      </div>
+      <div class="rcheckboxs">
+        <input type="checkbox" id="nosunc" name="noc" value="q" checked>
+        <label for="nosunc">해컨(Q)</label>
+        <input type="checkbox" id="nomoonc" name="noc" value="w" checked>
+        <label for="nomoonc">달컨(W)</label>
+        <input type="checkbox" id="nostarc" name="noc" value="e" checked>
+        <label for="nostarc">별컨(E)</label>
+      </div>
+    </div>
+    <div class="root" >
       <div class="gameMessage">
         <uibttn class="start">
           시작
         </uibttn>
-        <div class="scoreResult">tprtprqh </div>
+        <div class="scoreResult"></div>
         <uibttn class="restart">
           다시하기
         </uibttn>
@@ -58,7 +72,7 @@
             <div class="slot scool"><img id="qx" alt="adina_qx" src="./assets/X.png"></div>
             <div class="slot scool"><img id="wx" alt="adina_wx" src="./assets/X.png"></div>
             <div class="slot scool"><img id="ex" alt="adina_ex" src="./assets/X.png"></div>
-            <div class="slot scool"><img id="rx" alt="adina_rx" src=""></div>
+            <div class="slot scool"><img id="rx" alt="adina_rx" src="./assets/X.png"></div>
           </div>
           <div class="barsContainer">
             <div class="timeText">
@@ -67,13 +81,12 @@
             <div class="timeBar">
             </div>
             <div class="staminaBar">
-              Ver 1.1.0
             </div>
           </div>
         </div>
         <div class="rightContainer">
-          <div class="bonus" style="font-size: 60px;">
-            WIP
+          <div class="bonus">
+            <button class="restart" id="reset"><img src="assets/rootkit.png"></button>
           </div>
           <div class="point">
             <img alt="credit" src="./assets/credit.png">
@@ -89,7 +102,7 @@
 </body>
 <footer>
   <hr />
-  <div>V. B. Blue</div>
+  <div>Ver 2.0</div>
 </footer>
 
 </html>
