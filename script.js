@@ -99,7 +99,6 @@ window.addEventListener('DOMContentLoaded', function () {
 window.addEventListener("keydown", (e) => {
 	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
 		changeSlot(e.key);
-		console.log(celestialSlots[1]);
 		updateGame(); 
 	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
 		useSlot(e.key);
@@ -174,10 +173,9 @@ function drawShapes() {
 }
 
 
-async function fillSlot(amount, callback) { //칸 채우기
+async function fillSlot(amount, callback) { //칸 채우기. 하드코딩 마렵네
 	let queuedSlots = [];
 	queuedSlots = JSON.parse(JSON.stringify(celestialSlots));
-	console.log(queuedSlots);
 	for (let i = 0; i < amount; i++) {
 		//불가능한 천체 목록 제작
 		let indexi = queuedSlots.length; //채워야하는칸 = 길이
@@ -196,17 +194,18 @@ async function fillSlot(amount, callback) { //칸 채우기
 				checkedOrb.push(item);
 			}
 		});
-		if (indexi == 4 && !queuedSlots.includes(queuedSlots[0])) { //저장칸에 있는 천체는 적어도 5번칸에는 반드시 나와야함
-			availableOrb = queuedSlots[0]
-		} else {
-			availableOrb = orbs.filter(item => !checkedOrb.includes(item));
+		availableOrb = orbs.filter(item => !checkedOrb.includes(item)); //일단 가능한 천체 목록 생성
+		if (indexi == 4) { // 그런데 6번칸에는 1,2번칸과 다른 천체가 들어가야만 함.
+			if (!queuedSlots.includes(queuedSlots[0])) { //... 그러므로 저장(1번)칸에 있는 천체는 적어도 5번칸에는 반드시 나와야 함.
+				availableOrb = queuedSlots[0]
+			} else if (!queuedSlots.includes(queuedSlots[1])) { // 혹은 2번칸에 있는 천체도 적어도 5번칸에선 나와야 함.
+				availableOrb = queuedSlots[1]
+			}
 		}
 		//천체 선정
 		const randomOrbIndex = getRandomInt(0, availableOrb.length);
 		const randomOrb = availableOrb[randomOrbIndex];
 		queuedSlots.push(randomOrb);
-		console.log("pushed");
-		console.log(queuedSlots);
 	}
 	if (celestialSlots[0] != undefined){ // 큐와 실제 슬롯 동기화
 			queuedSlots.splice(0,1);
@@ -284,7 +283,6 @@ function changeSlot(pressedKey) {
 	keySlots.push(pressedKey);
 	if (+(isConjuncted()&&!isConjDone)){
 		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
-		console.log(document.querySelector("#conjUI img").src)
 		playSound(rSFX[1]);
 	} else {
 		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
