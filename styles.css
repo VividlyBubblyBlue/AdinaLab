@@ -20,6 +20,14 @@ body {
   min-height: 100vh;
 }
 
+details {
+  text-align: center;
+}
+
+a:hover{
+  color: #d30;
+}
+
 img {
   position: absolute;
   top: 50%;
@@ -27,6 +35,12 @@ img {
   transform: translate(-50%, -50%);
   object-fit: scale-down;
 }
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
 
 .game-container {
   background-color: #FFFFFF;
@@ -39,14 +53,13 @@ img {
   text-align: center;
 }
 
-h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
 .lcheckboxs {
   float: left;
   align-self: flex-start;
+}
+
+.lcheckboxs input[type=checkbox]{
+  margin-bottom: 20px;
 }
 
 .rcheckboxs {
@@ -463,6 +476,11 @@ uibttn.restart {
 
 .scoreText {
   flex: 1;
+}
+
+.report {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 footer {
