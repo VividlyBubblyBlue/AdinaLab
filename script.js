@@ -1,5 +1,6 @@
 const orbs = ['sun', 'moon', 'star'];
 const keyList = ['q', 'w', 'e', 'r', 'conj'];
+const inputKeyList = ['KeyQ','KeyW','KeyE','KeyR'];
 
 // 별읽기 바탕 이미지 로드
 const circleImage = new Image();
@@ -47,10 +48,13 @@ for (let i = 0; i < 3; i++) {
 	}
 }
 const rSFX = [];
-rSFX[0] = new Audio();
-rSFX[0].src = './assets/sfx/r.wav'
-rSFX[1] = new Audio();
-rSFX[1].src = './assets/sfx/conjr.wav'
+const conjrSFX = [];
+for (let i = 0; i < 4; i++) {
+	rSFX[i] = new Audio();
+	rSFX[i].src = './assets/sfx/r.wav'
+	conjrSFX[i] = new Audio();
+	conjrSFX[i].src = './assets/sfx/conjr.wav'
+}
 
 const tickSFX = new Audio();
 tickSFX.src = './assets/sfx/tick.wav'
@@ -97,11 +101,12 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener("keydown", (e) => {
-	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
-		changeSlot(e.key);
+	const input = keyList[inputKeyList.indexOf(e.code)];
+	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
+		changeSlot(input);
 		updateGame(); 
-	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
-		useSlot(e.key);
+	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
+		useSlot(input);
 		updateGame(); 
 	}
 });
@@ -123,6 +128,16 @@ function playSound(soundElement) {
 	}
 	soundElement.volume = document.getElementById("volume").value / 100;
 	soundElement.play();
+}
+
+function playFrqntSound(soundArray) { //중복 재생해야 할 사운드의 경우 배열 자체를 인자로 전달
+	for(let i = 0; i < soundArray.length; i++){
+		if(soundArray[i].paused){
+			console.log(i);
+			playSound(soundArray[i]);
+			return;
+		}
+	}
 }
 
 function volumeProgress() {
@@ -283,10 +298,10 @@ function changeSlot(pressedKey) {
 	keySlots.push(pressedKey);
 	if (+(isConjuncted()&&!isConjDone)){
 		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
-		playSound(rSFX[1]);
+		playFrqntSound(conjrSFX);
 	} else {
 		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
-		playSound(rSFX[0]);
+		playFrqntSound(rSFX);
 	}
 }
 
