@@ -1,5 +1,6 @@
 const orbs = ['sun', 'moon', 'star'];
 const keyList = ['q', 'w', 'e', 'r', 'conj'];
+const inputKeyList = ['KeyQ','KeyW','KeyE','KeyR'];
 
 // 별읽기 바탕 이미지 로드
 const circleImage = new Image();
@@ -100,11 +101,12 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener("keydown", (e) => {
-	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
-		changeSlot(e.key);
+	const input = keyList[inputKeyList.indexOf(e.code)];
+	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
+		changeSlot(input);
 		updateGame(); 
-	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
-		useSlot(e.key);
+	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
+		useSlot(input);
 		updateGame(); 
 	}
 });
