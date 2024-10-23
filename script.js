@@ -421,6 +421,69 @@ function gameOver() {
 	document.querySelector(".portrait img").src = "./assets/Adina_wat.png";
 }
 
+const translations = {
+  zh: {
+    header: "鮑格研究所",
+    notimer: "練習模式： 沒有計時",
+    nolock: "沒有技能鎖定",
+    nosunc: "雙太陽(Q)",
+    nomoonc: "雙月亮(W)",
+    nostarc: "雙星星(E)",
+    volume: "音量",
+    nos: "聲音",
+    nosfx: "音效",
+    start: "開始",
+    restart: "重啟",
+    reset: "重設",
+    summary: "錯誤回報/聯絡我們",
+    dcinside: "DC Inside",
+    github: "Github"
+  },
+  en: {
+    header: "Bauge Research Institute",
+    notimer: "Practice Mode: No Timer",
+    nolock: "No Skill Lock",
+    nosunc: "Sun x 2(Q)",
+    nomoonc: "Moon x 2(W)",
+    nostarc: "Star x 2(E)",
+    volume: "Volume",
+    nos: "Voice",
+    nosfx: "SFX",
+    start: "Start",
+    restart: "Restart",
+    reset: "Reset",
+    summary: "Bug Report/Contact Us",
+    dcinside: "DC Inside",
+    github: "Github"
+  },
+  kr: {
+    header: "바우게 연구소",
+    notimer: "연습 모드: 타이머X",
+    nolock: "스킬잠김X",
+    nosunc: "해컨(Q)",
+    nomoonc: "달컨(W)",
+    nostarc: "별컨(E)",
+    volume: "볼륨",
+    nos: "보이스",
+    nosfx: "효과음",
+    start: "시작",
+    restart: "다시하기",
+    reset: "리셋",
+    summary: "버그신고/문의",
+    dcinside: "갤",
+    github: "깃헙",
+  }
+};
+
+function translatePage(lang) {
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = translations[lang][key];
+  });
+}
+
+
 /*
 
 const numCircles = 7;
