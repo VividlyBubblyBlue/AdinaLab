@@ -33,53 +33,47 @@
   -->
 </div>
   <div class="game-container">
-    <!--<h1>바우게 연구소</h1>-->
-    <h1>Bauge Research Institute</h1>
     <script src="script.js"></script>
+    <h1 data-i18n="header">바우게 연구소</h1>
     <div>
       <div class="lcheckboxs">
-        <!--<label for="notimer">연습 모드: 타이머X</label>-->
-        <label for="notimer">Practice Mode: No Timer</label>
+        <label for="notimer" data-i18n="notimer">연습 모드: 타이머X </label>
         <input type="checkbox" id="notimer" name="notimer" checked>
-        <!--<label for="nolock">스킬잠김X</label>-->
-        <label for="nolock">No Skill Lock</label>
+        <label for="nolock" data-i18n="nolock">스킬잠김X</label>
         <input type="checkbox" id="nolock" name="nolock">
         <div>
           <input type="checkbox" id="nosunc" name="noc" value="q" checked>
-          <!--<label for="nosunc">해컨(Q)</label>-->
-          <label for="nosunc">Sun x 2(Q)</label>
+          <label for="nosunc" data-i18n="nosunc">해컨(Q)</label>
           <input type="checkbox" id="nomoonc" name="noc" value="w" checked>
-          <label for="nomoonc">Moon x 2(W)</label>
-          <!--<label for="nomoonc">달컨(W)</label>-->
+          <label for="nomoonc" data-i18n="nomoonc">달컨(W)</label>
           <input type="checkbox" id="nostarc" name="noc" value="e" checked>
-          <label for="nostarc">Star x 2(E)</label>
-          <!--<label for="nostarc">별컨(E)</label>-->
+          <label for="nostarc" data-i18n="nostarc">별컨(E)</label>
         </div>
       </div>
       <div class="rcheckboxs">
-        <label for="volume">Volume</label>
-        <!--<label for="volume">볼륨</label>-->
+        <label for="volume" data-i18n="volume">볼륨</label>
         <input type="range" id="volume" name="volume" value="50" oninput="volumeProgress()">
         <div>
           <input type="checkbox" id="novoice" name="nos" value="voice" checked>
-          <!--<label for="nosunc">보이스</label>-->
-          <label for="nosunc">Voice</label>
+          <label for="nosunc" data-i18n="nos">보이스</label>
           <input type="checkbox" id="nosfx" name="nos" value="sfx" checked>
-          <!--<label for="nomoonc">효과음</label>-->
-          <label for="nomoonc">SFX</label>
+          <label for="nomoonc" data-i18n="nosfx">효과음</label>
+          <div>
+            <button onclick="translatePage('kr')">Korean</button>
+            <button onclick="translatePage('en')">English</button>
+            <button onclick="translatePage('zh')">Chinese</button>
+          </div>
         </div>
       </div>
     </div>
     <div class="root" >
       <div class="gameMessage">
-        <uibttn class="start">
-          <!--시작-->
-          Start
+        <uibttn class="start" data-i18n="start">
+          시작
         </uibttn>
         <div class="scoreResult"></div>
-        <uibttn class="restart">
-          <!--다시하기-->
-          Restart
+        <uibttn class="restart" data-i18n="restart">
+          다시하기
         </uibttn>
       </div>
       <div class="celestialBox">
@@ -133,8 +127,7 @@
         <div class="rightContainer">
           <div class="bonus">
             <button class="restart" id="reset"><img src="assets/rootkit.png"></button>
-            <!--<div>리셋</div>-->
-            <div>Reset</div>
+            <div data-i18n="reset">리셋</div>
           </div>
           <div class="point">
             <img alt="credit" src="./assets/credit.png">
@@ -147,12 +140,9 @@
     </div>
   </div>
   <details class="report">
-    <summary>Bug Report/Contact Us</summary>
-    <!--<summary>버그신고/문의</summary>-->
-      <!--<a href="https://gall.dcinside.com/mgallery/board/view?id=bser&no=7633560" target="_blank">갤</a>-->
-      <a href="https://gall.dcinside.com/mgallery/board/view?id=bser&no=7633560" target="_blank">DC Inside</a>
-      <a href="https://github.com/VividlyBubblyBlue/AdinaLab/issues" target="_blank">Github</a>
-      <!--<a href="https://github.com/VividlyBubblyBlue/AdinaLab/issues" target="_blank">깃헙</a>-->
+    <summary data-i18n="summary">버그신고/문의</summary>
+      <a href="https://gall.dcinside.com/mgallery/board/view?id=bser&no=7633560" target="_blank" data-i18n="dcinside">갤</a>
+      <a href="https://github.com/VividlyBubblyBlue/AdinaLab/issues" target="_blank" data-i18n="github">깃헙</a>
   </details>
     <footer>
       <hr/>
