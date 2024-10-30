@@ -421,9 +421,11 @@ function gameOver() {
 	document.querySelector(".portrait img").src = "./assets/Adina_wat.png";
 }
 
+//바우게 = LOL에 나오는 Scuttle. 한국에서 쓰는 아디나의 별명.
+
 const translations = {
   zh: {
-    header: "鮑格研究所",
+    header: "迅捷蟹研究所",
     notimer: "練習模式： 沒有計時",
     nolock: "沒有技能鎖定",
     nosunc: "雙太陽(Q)",
@@ -440,7 +442,7 @@ const translations = {
     github: "Github"
   },
   en: {
-    header: "Bauge Research Institute",
+    header: "Scuttle Labatory",
     notimer: "Practice Mode: No Timer",
     nolock: "No Skill Lock",
     nosunc: "Sun x 2(Q)",
@@ -457,7 +459,7 @@ const translations = {
     github: "Github"
   },
   kr: {
-    header: "바우게 연구소",
+    header: "바우게 연구소", 
     notimer: "연습 모드: 타이머X",
     nolock: "스킬잠김X",
     nosunc: "해컨(Q)",
