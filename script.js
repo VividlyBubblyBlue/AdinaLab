@@ -82,9 +82,6 @@ let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
 	volumeProgress()
-	/*document.querySelector(".timeBar").addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
-		clearInterval(interval);
-		gameOver();})*/
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -188,11 +185,10 @@ function drawShapes() {
 }
 
 
-async function fillSlot(amount, callback) { //칸 채우기. 하드코딩 마렵네
+async function fillSlot(amount, callback) {
 	let queuedSlots = [];
 	queuedSlots = JSON.parse(JSON.stringify(celestialSlots));
-	for (let i = 0; i < amount; i++) {
-		//불가능한 천체 목록 제작
+	for (let i = 0; i < amount; i++) { //불가능한 천체 목록 제작
 		let indexi = queuedSlots.length; //채워야하는칸 = 길이
 		let occurrences = {};
 		let checkedOrb = [];
@@ -234,7 +230,7 @@ async function fillSlot(amount, callback) { //칸 채우기. 하드코딩 마렵
 }
 
 
-function isConjuncted() { // 컨정션 확인
+function isConjuncted() {
 	if (celestialSlots[1] == celestialSlots[2] && celestialSlots[1] != undefined) {
 		return true;
 	} else {
@@ -245,11 +241,10 @@ function isConjuncted() { // 컨정션 확인
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
-		document.getElementById("conjUI").src = "./assets/conjUI.png"
 		const conj = isConjuncted();
 		const ableConjCheck = document.getElementsByName("noc");
 		const ableConj = [];
-		for (i=0; i<ableConjCheck.length; i++) { //체크박스 확인
+		for (i=0; i<ableConjCheck.length; i++) { //체크박스 기록
 			if (ableConjCheck[i].checked == true) {
 				ableConj.push(ableConjCheck[i].value);
 			}
@@ -257,9 +252,9 @@ function useSlot(pressedKey) {
 		let pressedKeySFX;
 
 		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
-			if (!ableConj.includes(pressedKey)) { //체크박스로 비활성화된 컨정션 확인
+			if (!ableConj.includes(pressedKey)) {
 				vibrateSkill(pressedKey);
-				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // 이건 좀;
+				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // React든 Vue든 썼어야 했는데
 				chk.classList.add("yellowHighlight");
 				playSound(tickSFX);
 				setTimeout(function () {
@@ -269,7 +264,6 @@ function useSlot(pressedKey) {
 			}
 			celestialSlots.splice(1, 1);
 			playSound(voiceLines[3 + keyList.indexOf(pressedKey)])
-			document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 			pressedKey = 'conj_' + pressedKey;
 			isConjDone = true;
 		}
@@ -296,11 +290,9 @@ function changeSlot(pressedKey) {
 	celestialSlots[0] = celestialSlots[1]
 	celestialSlots[1] = tmp;
 	keySlots.push(pressedKey);
-	if (+(isConjuncted()&&!isConjDone)){
-		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
+	if (isConjuncted()&&!isConjDone){
 		playFrqntSound(conjrSFX);
 	} else {
-		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 		playFrqntSound(rSFX);
 	}
 }
@@ -381,10 +373,13 @@ function updateGame() {
 		s[i].src = skillImages[i].src
 	}
 
-	if (conj && !isConjDone) { // 컨정션시 아이콘 변경
+	if (conj && !isConjDone) { // 컨정션시 화면 변경
 		s[conjuctedShape].src = CskillImages[conjuctedShape].src;
 		c[conjuctedShape].style.visibility = "hidden";
-	} 
+		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
+	} else {
+		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
+	}
 
 	if (!isReadingStar && celestialSlots.length == 1) { // 별읽기
 		isReadingStar = true;
@@ -421,65 +416,66 @@ function gameOver() {
 	document.querySelector(".portrait img").src = "./assets/Adina_wat.png";
 }
 
-/*
+//바우게 = LOL에 나오는 Scuttle. 한국에서 쓰는 아디나의 별명.
 
-const numCircles = 7;
-const circleRadius = 60;
-const circleSpacing = 5;
+const translations = {
+  zh: {
+    header: "迅捷蟹研究所",
+    notimer: "練習模式： 沒有計時",
+    nolock: "沒有技能鎖定",
+    nosunc: "雙太陽(Q)",
+    nomoonc: "雙月亮(W)",
+    nostarc: "雙星星(E)",
+    volume: "音量",
+    nos: "聲音",
+    nosfx: "音效",
+    start: "開始",
+    restart: "重啟",
+    reset: "重設",
+    summary: "錯誤回報/聯絡我們",
+    dcinside: "DC Inside",
+    github: "Github"
+  },
+  en: {
+    header: "Scuttle Labatory",
+    notimer: "Practice Mode: No Timer",
+    nolock: "No Skill Lock",
+    nosunc: "Sun x 2(Q)",
+    nomoonc: "Moon x 2(W)",
+    nostarc: "Star x 2(E)",
+    volume: "Volume",
+    nos: "Voice",
+    nosfx: "SFX",
+    start: "Start",
+    restart: "Restart",
+    reset: "Reset",
+    summary: "Bug Report/Contact Us",
+    dcinside: "DC Inside",
+    github: "Github"
+  },
+  kr: {
+    header: "바우게 연구소", 
+    notimer: "연습 모드: 타이머X",
+    nolock: "스킬잠김X",
+    nosunc: "해컨(Q)",
+    nomoonc: "달컨(W)",
+    nostarc: "별컨(E)",
+    volume: "볼륨",
+    nos: "보이스",
+    nosfx: "효과음",
+    start: "시작",
+    restart: "다시하기",
+    reset: "리셋",
+    summary: "버그신고/문의",
+    dcinside: "갤",
+    github: "깃헙",
+  }
+};
 
-const numSquares = 4;
-const squareSize = 80;
-const squareSpacing = 10;
-
-
-function drawShapes() { // 버튼 셋업과 좌표 선정
-	const canvasWidth = canvas.width;
-	const canvasCenter = canvasWidth / 2;
-	const totalWidthC = (numCircles * circleRadius * 2) + ((numCircles - 1) * circleSpacing);
-	const totalWidthS = (numSquares * squareSize) + ((numSquares - 1) * squareSpacing);
-
-	// 바탕원
-	for (let i = 0; i < numCircles; i++) {
-		const startX = (canvasWidth - totalWidthC) / 2;
-		const x = startX + (i * (circleRadius * 2 + circleSpacing) + circleRadius);
-		const y = canvas.height * 0.45;
-		// 화살표
-		if (i == 1) {
-			ctx.drawImage(arrowImage, x - circleRadius, y - circleRadius, circleRadius * 2, circleRadius * 2)
-		} else {
-			ctx.drawImage(circleImage, x - circleRadius, y - circleRadius, circleRadius * 2, circleRadius * 2);
-		}
-	}
-	// 별자리
-	for (let i = 0, indexi = 0; i < celestialSlots.length + 1; i++, indexi++) {
-		if (i == 1) {
-			i++;
-		}
-		const startX = (canvasWidth - totalWidthC) / 2;
-		const x = startX + (i * (circleRadius * 2 + circleSpacing) + circleRadius);
-		const y = canvas.height * 0.45;
-		let c = celestialSlots.map(item => orbs.indexOf(item));
-		try {
-			ctx.drawImage(celesImage[c[indexi]], x - circleRadius, y - circleRadius, circleRadius * 2, circleRadius * 2);
-		} catch {
-			break;
-		}
-
-	}
-
-	// 하단 스킬 이미지
-	for (let i = 0; i < numSquares; i++) {
-		const startX = (canvasWidth - totalWidthS) / 2;
-		const x = startX + (i * (squareSize + squareSpacing));
-		const y = canvas.height * 0.8 - (squareSize / 2);
-		ctx.drawImage(skillImages[i], x, y, squareSize, squareSize);
-	}
-
-	//상단 버튼 목록
-	for (let i = 0; i < keySlots.length; i++) {
-		const x = 100 + ((i + 1) * (squareSize + squareSpacing));
-		const y = canvas.height * 0.2 - (squareSize / 2);
-		ctx.drawImage(skillImages[keyList.indexOf(keySlots[i])], x, y, squareSize, squareSize);
-	}
+function translatePage(lang) {
+  const elements = document.querySelectorAll('[data-i18n]');
+  elements.forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = translations[lang][key];
+  });
 }
-*/
