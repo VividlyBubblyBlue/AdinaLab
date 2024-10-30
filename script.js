@@ -241,7 +241,6 @@ function isConjuncted() {
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
-		document.getElementById("conjUI").src = "./assets/conjUI.png"
 		const conj = isConjuncted();
 		const ableConjCheck = document.getElementsByName("noc");
 		const ableConj = [];
@@ -265,7 +264,6 @@ function useSlot(pressedKey) {
 			}
 			celestialSlots.splice(1, 1);
 			playSound(voiceLines[3 + keyList.indexOf(pressedKey)])
-			document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 			pressedKey = 'conj_' + pressedKey;
 			isConjDone = true;
 		}
@@ -292,11 +290,9 @@ function changeSlot(pressedKey) {
 	celestialSlots[0] = celestialSlots[1]
 	celestialSlots[1] = tmp;
 	keySlots.push(pressedKey);
-	if (+(isConjuncted()&&!isConjDone)){
-		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
+	if (isConjuncted()&&!isConjDone){
 		playFrqntSound(conjrSFX);
 	} else {
-		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
 		playFrqntSound(rSFX);
 	}
 }
@@ -377,10 +373,13 @@ function updateGame() {
 		s[i].src = skillImages[i].src
 	}
 
-	if (conj && !isConjDone) { // 컨정션시 아이콘 변경
+	if (conj && !isConjDone) { // 컨정션시 화면 변경
 		s[conjuctedShape].src = CskillImages[conjuctedShape].src;
 		c[conjuctedShape].style.visibility = "hidden";
-	} 
+		document.querySelector("#conjUI img").src = "./assets/CconjUI.png"
+	} else {
+		document.querySelector("#conjUI img").src= "./assets/conjUI.png"
+	}
 
 	if (!isReadingStar && celestialSlots.length == 1) { // 별읽기
 		isReadingStar = true;
