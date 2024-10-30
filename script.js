@@ -82,9 +82,6 @@ let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
 	volumeProgress()
-	/*document.querySelector(".timeBar").addEventListener("animationend", function (e) { //체력바 애니메이션 종료시 게임 오버
-		clearInterval(interval);
-		gameOver();})*/
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -188,11 +185,10 @@ function drawShapes() {
 }
 
 
-async function fillSlot(amount, callback) { //칸 채우기. 하드코딩 마렵네
+async function fillSlot(amount, callback) {
 	let queuedSlots = [];
 	queuedSlots = JSON.parse(JSON.stringify(celestialSlots));
-	for (let i = 0; i < amount; i++) {
-		//불가능한 천체 목록 제작
+	for (let i = 0; i < amount; i++) { //불가능한 천체 목록 제작
 		let indexi = queuedSlots.length; //채워야하는칸 = 길이
 		let occurrences = {};
 		let checkedOrb = [];
@@ -234,7 +230,7 @@ async function fillSlot(amount, callback) { //칸 채우기. 하드코딩 마렵
 }
 
 
-function isConjuncted() { // 컨정션 확인
+function isConjuncted() {
 	if (celestialSlots[1] == celestialSlots[2] && celestialSlots[1] != undefined) {
 		return true;
 	} else {
@@ -249,7 +245,7 @@ function useSlot(pressedKey) {
 		const conj = isConjuncted();
 		const ableConjCheck = document.getElementsByName("noc");
 		const ableConj = [];
-		for (i=0; i<ableConjCheck.length; i++) { //체크박스 확인
+		for (i=0; i<ableConjCheck.length; i++) { //체크박스 기록
 			if (ableConjCheck[i].checked == true) {
 				ableConj.push(ableConjCheck[i].value);
 			}
@@ -257,9 +253,9 @@ function useSlot(pressedKey) {
 		let pressedKeySFX;
 
 		if (conj && !isConjDone && keyList.indexOf(pressedKey) == orbs.indexOf(celestialSlots[1])) { //컨정션 확인
-			if (!ableConj.includes(pressedKey)) { //체크박스로 비활성화된 컨정션 확인
+			if (!ableConj.includes(pressedKey)) {
 				vibrateSkill(pressedKey);
-				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // 이건 좀;
+				const chk = document.querySelector("[for='"+ document.querySelector("[value='"+pressedKey+"']").id +"']" ) // React든 Vue든 썼어야 했는데
 				chk.classList.add("yellowHighlight");
 				playSound(tickSFX);
 				setTimeout(function () {
