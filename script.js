@@ -370,12 +370,12 @@ function updateGame() {
 	for (let i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
 		if (keySlots[i] == 'r') {
 			continue;
-		} else if (!document.getElementById("nolock").checked) {
-			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
-			catch{}
-		} else {
+		} else if (document.getElementById("nolock").checked) {
 			toggleCoolIcons(false);
 			break;
+		} else {
+			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
+			catch{}
 		}
 	}
 
