@@ -331,16 +331,19 @@ function restartTimer() {
 }
 
 function resetIcons() {
+	resetSkillIcons();
+	toggleCoolIcons(false);
+}
 
-	const c = document.querySelectorAll(".scool img");
+function resetSkillIcons() {
 	const s = document.querySelectorAll(".s img")
+	s.forEach(img=>{img.src = skillImages[i].src});
+}
 
-	for (let i = 0; i < s.length; i++) {
-		s[i].src = skillImages[i].src
-	}
-	for (let i = 0; i < c.length; i++) {
-		c[i].style.visibility = "hidden";
-	}
+function toggleCoolIcons(bool) {
+	const vis = bool ? 'visible' : 'hidden'; 
+	const c = document.querySelectorAll(".scool img");
+	c.forEach(img=>{img.style.visibility = vis});
 }
 
 function vibrateSkill(skill) {
@@ -355,24 +358,23 @@ function vibrateSkill(skill) {
 
 function updateGame() {
 	const conj = isConjuncted();
-	const c = document.querySelectorAll(".scool img");
 	const s = document.querySelectorAll(".s img")
 	const cooltimer = document.getElementById("cooltimer")
 	const conjuctedShape = orbs.indexOf(celestialSlots[1]);
 
 	for (let i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
-		if (keySlots[i] != 'r' && !document.getElementById("nolock").checked ){
+		if (keySlots[i] != 'r'){
+			continue;
+		} else if (document.getElementById("nolock").checked ){
 				try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
 				catch{}
-		} else if (document.getElementById("nolock").checked) {
-			resetIcons();
+		} else {
+			toggleCoolIcons(true);
 			break;
 		}
 	}
 
-	for (let i = 0; i < s.length; i++) {
-		s[i].src = skillImages[i].src
-	}
+	resetSkillIcons();
 
 	if (conj && !isConjDone) { // 컨정션시 화면 변경
 		s[conjuctedShape].src = CskillImages[conjuctedShape].src;
@@ -386,16 +388,12 @@ function updateGame() {
 		isReadingStar = true;
 		isConjDone = false;
 		keySlots = [];
-		for (let i = 0; i < c.length; i++) {
-			c[i].style.visibility = "visible";
-		}
+		toggleCoolIcons(true);
 		document.querySelector(".timeBar").style.animationPlayState = "paused";
 		document.getElementById("reset").style.display = "none";
 		clearInterval(interval);
 		fillSlot(5, function () {
-			for (let i = 0; i < c.length; i++) {
-				c[i].style.visibility = "hidden";
-			}
+			toggleCoolIcons(false);
 			restartTimer();
 			isReadingStar = false;
 			document.getElementById("reset").style.display = "inline-block";
