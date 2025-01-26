@@ -372,7 +372,6 @@ function updateGame() {
 			continue;
 		} else if (document.getElementById("nolock").checked) {
 			toggleCoolIcons(false);
-			break;
 		} else {
 			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
 			catch{}
