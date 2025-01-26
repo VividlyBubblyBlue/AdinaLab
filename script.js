@@ -337,13 +337,17 @@ function resetIcons() {
 
 function resetSkillIcons() {
 	const s = document.querySelectorAll(".s img")
-	s.forEach(img=>{img.src = skillImages[i].src});
+	s.forEach((img, i) => {
+		img.src = skillImages[i].src;
+	});
 }
 
 function toggleCoolIcons(bool) {
 	const vis = bool ? 'visible' : 'hidden'; 
 	const c = document.querySelectorAll(".scool img");
-	c.forEach(img=>{img.style.visibility = vis});
+	c.forEach(img=>{
+		img.style.visibility = vis
+	});
 }
 
 function vibrateSkill(skill) {
@@ -358,18 +362,19 @@ function vibrateSkill(skill) {
 
 function updateGame() {
 	const conj = isConjuncted();
+	const c = document.querySelectorAll(".scool img");
 	const s = document.querySelectorAll(".s img")
 	const cooltimer = document.getElementById("cooltimer")
 	const conjuctedShape = orbs.indexOf(celestialSlots[1]);
 
 	for (let i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
-		if (keySlots[i] != 'r'){
+		if (keySlots[i] == 'r') {
 			continue;
-		} else if (document.getElementById("nolock").checked ){
-				try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
-				catch{}
+		} else if (!document.getElementById("nolock").checked) {
+			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
+			catch{}
 		} else {
-			toggleCoolIcons(true);
+			toggleCoolIcons(false);
 			break;
 		}
 	}
