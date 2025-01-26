@@ -128,9 +128,8 @@ function playSound(soundElement) {
 }
 
 function playFrqntSound(soundArray) { //중복 재생해야 할 사운드의 경우 배열 자체를 인자로 전달
-	for(let i = 0; i < soundArray.length; i++){
+	for (let i = 0; i < soundArray.length; i++){
 		if(soundArray[i].paused){
-			console.log(i);
 			playSound(soundArray[i]);
 			return;
 		}
@@ -244,7 +243,7 @@ function useSlot(pressedKey) {
 		const conj = isConjuncted();
 		const ableConjCheck = document.getElementsByName("noc");
 		const ableConj = [];
-		for (i=0; i<ableConjCheck.length; i++) { //체크박스 기록
+		for (let i = 0; i < ableConjCheck.length; i++) { //체크박스 기록
 			if (ableConjCheck[i].checked == true) {
 				ableConj.push(ableConjCheck[i].value);
 			}
@@ -336,7 +335,7 @@ function resetIcons() {
 	const c = document.querySelectorAll(".scool img");
 	const s = document.querySelectorAll(".s img")
 
-	for (i = 0; i < s.length; i++) {
+	for (let i = 0; i < s.length; i++) {
 		s[i].src = skillImages[i].src
 	}
 	for (let i = 0; i < c.length; i++) {
@@ -361,15 +360,17 @@ function updateGame() {
 	const cooltimer = document.getElementById("cooltimer")
 	const conjuctedShape = orbs.indexOf(celestialSlots[1]);
 
-	for (i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
+	for (let i = 0; i < keySlots.length; i++) { // 사용된 아이콘 x처리
 		if (keySlots[i] != 'r' && !document.getElementById("nolock").checked ){
-			try{
-				document.getElementById(keySlots[i] + "x").style.visibility = "visible";
-			} catch{}
+				try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
+				catch{}
+		} else if (document.getElementById("nolock").checked) {
+			resetIcons();
+			break;
 		}
 	}
 
-	for (i = 0; i < s.length; i++) {
+	for (let i = 0; i < s.length; i++) {
 		s[i].src = skillImages[i].src
 	}
 
