@@ -36,6 +36,20 @@ CskillImages[2].src = './assets/Adina_EC.webp';
 CskillImages[3] = new Image();
 CskillImages[3].src = './assets/Adina_R.webp';
 
+ //  아디나 일러스트 로드
+ const AdinaIllust = [];
+ AdinaIllust[0] = new Image();
+ AdinaIllust[0].src = './assets/Adinaillust_stand.png';
+ AdinaIllust[1] = new Image();
+ AdinaIllust[1].src = './assets/Adinaillust_attack.png';
+ 
+  //  멧돼지 일러스트 로드
+ const BoarIllust = [];
+ BoarIllust[0] = new Image();
+ BoarIllust[0].src = './assets/boarillust_stand.png';
+ BoarIllust[1] = new Image();
+ BoarIllust[1].src = './assets/boarillust_attacked.png';
+
 const nonExistSFX = ["sunr","moonr","starr"];
 const skillSFX = Array.from(Array(3), () => new Array(5));
 for (let i = 0; i < 3; i++) {
@@ -98,12 +112,41 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener("keydown", (e) => {
-	const input = keyList[inputKeyList.indexOf(e.code)];
-	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
-		changeSlot(input);
+	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
+		// 아디나만 바뀜
+		// todo r 눌렀을 때 스프라이트 바뀌는 처리 필요
+		changeSlot(e.key);
 		updateGame(); 
-	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
-		useSlot(input);
+	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
+		// todo 키를 눌러도 스프라이트가 바뀌지 않아야 하는 조건에 대한 처리 필요
+		// todo 키를 연속해서 누르면 스프라이트가 원복되는 시간을 늦추는 처리 필요
+
+		// 아디나랑 맷돼지 둘 다 바뀜
+		// 아디나 자리
+		const AdinaStand = document.querySelector("#adina-stand");
+		const AdinaAttack = document.querySelector("#adina-attack");
+
+		AdinaAttack.classList.remove('hide');
+		AdinaStand.classList.add('hide');
+
+		sleep(1000).then(() => {
+			AdinaAttack.classList.add('hide');
+			AdinaStand.classList.remove('hide'); 
+		});
+
+		// 맷돼지 자리
+		const boarStand = document.querySelector("#boar-stand");
+		const boarAttacked = document.querySelector("#boar-attacked");
+
+		boarStand.classList.add('hide');
+		boarAttacked.classList.remove('hide');
+
+		sleep(1000).then(() => {
+			boarStand.classList.remove('hide');
+			boarAttacked.classList.add('hide');
+		});
+
+		useSlot(e.key);
 		updateGame(); 
 	}
 });
