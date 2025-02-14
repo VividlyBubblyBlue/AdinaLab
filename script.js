@@ -113,39 +113,12 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener("keydown", (e) => {
 	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
-		// 아디나만 바뀜
-		// todo r 눌렀을 때 스프라이트 바뀌는 처리 필요
-		changeSlot(e.key);
+		// CLEAR 아디나만 바뀜
+		// CLEAR todo r 눌렀을 때 스프라이트 바뀌는 처리 필요
+		adinaSprite();
+		changeSlot();
 		updateGame(); 
 	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
-		// todo 키를 눌러도 스프라이트가 바뀌지 않아야 하는 조건에 대한 처리 필요
-		// todo 키를 연속해서 누르면 스프라이트가 원복되는 시간을 늦추는 처리 필요
-
-		// 아디나랑 맷돼지 둘 다 바뀜
-		// 아디나 자리
-		const AdinaStand = document.querySelector("#adina-stand");
-		const AdinaAttack = document.querySelector("#adina-attack");
-
-		AdinaAttack.classList.remove('hide');
-		AdinaStand.classList.add('hide');
-
-		sleep(1000).then(() => {
-			AdinaAttack.classList.add('hide');
-			AdinaStand.classList.remove('hide'); 
-		});
-
-		// 맷돼지 자리
-		const boarStand = document.querySelector("#boar-stand");
-		const boarAttacked = document.querySelector("#boar-attacked");
-
-		boarStand.classList.add('hide');
-		boarAttacked.classList.remove('hide');
-
-		sleep(1000).then(() => {
-			boarStand.classList.remove('hide');
-			boarAttacked.classList.add('hide');
-		});
-
 		useSlot(e.key);
 		updateGame(); 
 	}
@@ -184,6 +157,35 @@ function volumeProgress() {
 	const sElement = document.getElementById("volume")
 	const sValue = sElement.value;
   sElement.style.background = `linear-gradient(to right, #0EB4FC ${sValue}%, #ccc ${sValue}%)`;
+}
+
+function adinaSprite() {  //아디나 스프라이트 변경
+		// CLEAR todo 키를 눌러도 스프라이트가 바뀌지 않아야 하는 조건에 대한 처리 필요
+		// ??? todo 키를 연속해서 누르면 스프라이트가 원복되는 시간을 늦추는 처리 필요
+		const AdinaStand = document.querySelector("#adina-stand");
+		const AdinaAttack = document.querySelector("#adina-attack");
+
+		AdinaAttack.classList.remove('hide');
+		AdinaStand.classList.add('hide');
+
+		sleep(1000).then(() => {
+			AdinaAttack.classList.add('hide');
+			AdinaStand.classList.remove('hide');
+				
+		});
+	}
+
+function boarSprite() { //멧돼지 스프라이트 변경
+	const boarStand = document.querySelector("#boar-stand");
+	const boarAttacked = document.querySelector("#boar-attacked");
+
+	boarStand.classList.add('hide');
+	boarAttacked.classList.remove('hide');
+
+	sleep(1000).then(() => {
+		boarAttacked.classList.add('hide');
+		boarStand.classList.remove('hide');
+	});
 }
 
 function resetGame() {
@@ -316,8 +318,12 @@ function useSlot(pressedKey) {
 		}
 		if (conj) {
 			pressedKeySFX = 'conj'
+			adinaSprite()
+			boarSprite()
 		} else {
 			pressedKeySFX = pressedKey
+			adinaSprite()
+			boarSprite()
 		}
 		playSound(skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)]);
 		keySlots.push(pressedKey);
