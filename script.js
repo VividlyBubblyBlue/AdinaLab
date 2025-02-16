@@ -113,7 +113,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener("keydown", (e) => {
 	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
-		// CLEAR 아디나만 바뀜
+		// CLEAR todo 아디나만 바뀜
 		// CLEAR todo r 눌렀을 때 스프라이트 바뀌는 처리 필요
 		adinaSprite();
 		changeSlot();
@@ -159,6 +159,10 @@ function volumeProgress() {
   sElement.style.background = `linear-gradient(to right, #0EB4FC ${sValue}%, #ccc ${sValue}%)`;
 }
 
+// todo 이펙트 3종 구현
+// 1. 아디나, 멧돼지 스프라이트 간격 조정
+// 2. 해, 달, 별, 강화 각각 QWE 표현
+// 3. 연속으로 사용 할 수 있으므로 재활용 불가능 
 function adinaSprite() {  //아디나 스프라이트 변경
 		// CLEAR todo 키를 눌러도 스프라이트가 바뀌지 않아야 하는 조건에 대한 처리 필요
 		// ??? todo 키를 연속해서 누르면 스프라이트가 원복되는 시간을 늦추는 처리 필요

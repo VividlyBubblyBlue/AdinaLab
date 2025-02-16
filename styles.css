@@ -80,10 +80,12 @@ h1 {
 }
 
 .adina {
-  position: relative;
+  position: absolute;
   display: inline-block;
   width: 200px;
   height: 200px;
+  top: 50px;
+  left: 100px;
   background-color: blue;
 }
 
@@ -93,10 +95,12 @@ h1 {
 }
 
 .boar {
-  position: relative;
+  position: absolute;
   display: inline-block;
   width: 200px;
   height: 200px;
+  top: 50px;
+  right: 100px;
   background-color: green;
 }
 .boar-sprite {
