@@ -1,12 +1,29 @@
 function luminary() {
-  // 1. 엘리먼트 생성
   const luminaryElement = document.createElement('div');
-  // 2. 엘리먼트 속성 변경
-  luminaryElement.innerText = 'Q';
+  
+  if (isConjuncted == false) 
+    luminaryElement.innerText = 'Qconj';
+  else
+    if  (celestialSlots[1] == 'sun') {
+      luminaryElement.innerText = 'Qsun';}
+    else if (celestialSlots[1] == 'moon') {
+      luminaryElement.innerText = 'Qmoon'; }
+    else if (celestialSlots[1] == 'star') {
+      luminaryElement.innerText = 'Qstar';
+  }
   luminaryElement.classList.add('luminary');
 
-  // 3. 엘리먼트를 화면에 추가
-  // 어디에 추가할지를 가지고 온다
+  /*if (conj && !isConjDone) { //코드 재활용 c
+    if  (celestialSlots[1] == 'sun') {
+      luminaryElement.innerText = 'Qsun';}
+    else if (celestialSlots[1] == 'moon') {
+      luminaryElement.innerText = 'Qmoon'; }
+    else if (celestialSlots[1] == 'star') {
+      luminaryElement.innerText = 'Qstar';
+	} else {
+		luminaryElement.innerText = 'Qconj';}
+  }*/
+
   const spritesElement = document.querySelector('.sprites');
   spritesElement.appendChild(luminaryElement);
 

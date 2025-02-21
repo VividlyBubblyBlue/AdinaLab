@@ -2,7 +2,16 @@ function astralTrine() {
 
   const astralTrineElement = document.createElement('div');
 
-  astralTrineElement.innerText = 'W';
+  if (isConjuncted == false) 
+    astralTrineElement.innerText = 'Wconj';
+  else
+    if  (celestialSlots[1] == 'sun') {
+      astralTrineElement.innerText = 'Wsun';}
+    else if (celestialSlots[1] == 'moon') {
+      astralTrineElement.innerText = 'Wmoon'; }
+    else if (celestialSlots[1] == 'star') {
+      astralTrineElement.innerText = 'Wstar';
+  }
   astralTrineElement.classList.add('astralTrine');
 
   const spritesElement = document.querySelector('.sprites');
