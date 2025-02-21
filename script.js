@@ -113,8 +113,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
 window.addEventListener("keydown", (e) => {
 	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
-		// CLEAR todo 아디나만 바뀜
-		// CLEAR todo r 눌렀을 때 스프라이트 바뀌는 처리 필요
+		console.log(celestialSlots[0]);
+		console.log(celestialSlots[1]);
+		console.log(celesImage[0]);
 		adinaSprite();
 		changeSlot();
 		updateGame(); 
@@ -159,24 +160,21 @@ function volumeProgress() {
   sElement.style.background = `linear-gradient(to right, #0EB4FC ${sValue}%, #ccc ${sValue}%)`;
 }
 
-// todo 이펙트 3종 구현
-// 1. 아디나, 멧돼지 스프라이트 간격 조정
-// 2. 해, 달, 별, 강화 각각 QWE 표현
-// 3. 연속으로 사용 할 수 있으므로 재활용 불가능 
-function adinaSprite() {  //아디나 스프라이트 변경
-		// CLEAR todo 키를 눌러도 스프라이트가 바뀌지 않아야 하는 조건에 대한 처리 필요
-		// ??? todo 키를 연속해서 누르면 스프라이트가 원복되는 시간을 늦추는 처리 필요
+function adinaSprite(pressedKey) {  //아디나 스프라이트 변경
 		const AdinaStand = document.querySelector("#adina-stand");
 		const AdinaAttack = document.querySelector("#adina-attack");
 
 		AdinaAttack.classList.remove('hide');
 		AdinaStand.classList.add('hide');
 
+		effect(pressedKey);
+
 		sleep(1000).then(() => {
 			AdinaAttack.classList.add('hide');
 			AdinaStand.classList.remove('hide');
 				
 		});
+		
 	}
 
 function boarSprite() { //멧돼지 스프라이트 변경
@@ -287,6 +285,20 @@ function isConjuncted() {
 	}
 }
 
+// todo 필요한 이펙트 추가
+// todo 입력한 키에 맞게 이펙트 생성하는 로직 추가
+// todo 현재 키 입력시의 천체를 확인하는 로직 추가
+
+//입력하는 키에 따라 나가는 이펙트
+function effect(pressedKey) {
+	if (pressedKey == 'q') {
+		luminary();}
+	if (pressedKey == 'w'){
+		astralTrine();}
+	if (pressedKey == 'e'){
+		console.log('EEE');
+		fatedHorizon();}
+}
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
@@ -322,11 +334,11 @@ function useSlot(pressedKey) {
 		}
 		if (conj) {
 			pressedKeySFX = 'conj'
-			adinaSprite()
+			adinaSprite(pressedKey)
 			boarSprite()
 		} else {
 			pressedKeySFX = pressedKey
-			adinaSprite()
+			adinaSprite(pressedKey)
 			boarSprite()
 		}
 		playSound(skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)]);
