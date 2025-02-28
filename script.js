@@ -36,6 +36,20 @@ CskillImages[2].src = './assets/Adina_EC.webp';
 CskillImages[3] = new Image();
 CskillImages[3].src = './assets/Adina_R.webp';
 
+ //  아디나 일러스트 로드
+ const AdinaIllust = [];
+ AdinaIllust[0] = new Image();
+ AdinaIllust[0].src = './assets/Adinaillust_stand.png';
+ AdinaIllust[1] = new Image();
+ AdinaIllust[1].src = './assets/Adinaillust_attack.png';
+ 
+  //  멧돼지 일러스트 로드
+ const BoarIllust = [];
+ BoarIllust[0] = new Image();
+ BoarIllust[0].src = './assets/boarillust_stand.png';
+ BoarIllust[1] = new Image();
+ BoarIllust[1].src = './assets/boarillust_attacked.png';
+
 const nonExistSFX = ["sunr","moonr","starr"];
 const skillSFX = Array.from(Array(3), () => new Array(5));
 for (let i = 0; i < 3; i++) {
@@ -98,12 +112,15 @@ window.addEventListener('DOMContentLoaded', function () {
 });
 
 window.addEventListener("keydown", (e) => {
-	const input = keyList[inputKeyList.indexOf(e.code)];
-	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
-		changeSlot(input);
+	if (e.key == 'r' && celestialSlots[1] != undefined && duringGame ) {
+		console.log(celestialSlots[0]);
+		console.log(celestialSlots[1]);
+		console.log(celesImage[0]);
+		adinaSprite();
+		changeSlot();
 		updateGame(); 
-	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
-		useSlot(input);
+	} else if (keyList.includes(e.key) && !isReadingStar && duringGame) {
+		useSlot(e.key);
 		updateGame(); 
 	}
 });
@@ -141,6 +158,36 @@ function volumeProgress() {
 	const sElement = document.getElementById("volume")
 	const sValue = sElement.value;
   sElement.style.background = `linear-gradient(to right, #0EB4FC ${sValue}%, #ccc ${sValue}%)`;
+}
+
+function adinaSprite(pressedKey) {  //아디나 스프라이트 변경
+		const AdinaStand = document.querySelector("#adina-stand");
+		const AdinaAttack = document.querySelector("#adina-attack");
+
+		AdinaAttack.classList.remove('hide');
+		AdinaStand.classList.add('hide');
+
+		effect(pressedKey);
+
+		sleep(1000).then(() => {
+			AdinaAttack.classList.add('hide');
+			AdinaStand.classList.remove('hide');
+				
+		});
+		
+	}
+
+function boarSprite() { //멧돼지 스프라이트 변경
+	const boarStand = document.querySelector("#boar-stand");
+	const boarAttacked = document.querySelector("#boar-attacked");
+
+	boarStand.classList.add('hide');
+	boarAttacked.classList.remove('hide');
+
+	sleep(1000).then(() => {
+		boarAttacked.classList.add('hide');
+		boarStand.classList.remove('hide');
+	});
 }
 
 function resetGame() {
@@ -238,6 +285,20 @@ function isConjuncted() {
 	}
 }
 
+// todo 필요한 이펙트 추가
+// todo 입력한 키에 맞게 이펙트 생성하는 로직 추가
+// todo 현재 키 입력시의 천체를 확인하는 로직 추가
+
+//입력하는 키에 따라 나가는 이펙트
+function effect(pressedKey) {
+	if (pressedKey == 'q') {
+		luminary();}
+	if (pressedKey == 'w'){
+		astralTrine();}
+	if (pressedKey == 'e'){
+		console.log('EEE');
+		fatedHorizon();}
+}
 
 function useSlot(pressedKey) {
 	if (pressedKey == 'q' || pressedKey == 'w' || pressedKey == 'e') {
@@ -273,8 +334,12 @@ function useSlot(pressedKey) {
 		}
 		if (conj) {
 			pressedKeySFX = 'conj'
+			adinaSprite(pressedKey)
+			boarSprite()
 		} else {
 			pressedKeySFX = pressedKey
+			adinaSprite(pressedKey)
+			boarSprite()
 		}
 		playSound(skillSFX[orbs.indexOf(celestialSlots[1])][keyList.indexOf(pressedKeySFX)]);
 		keySlots.push(pressedKey);
