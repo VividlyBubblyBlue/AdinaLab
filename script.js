@@ -2,71 +2,58 @@ const orbs = ['sun', 'moon', 'star'];
 const keyList = ['q', 'w', 'e', 'r', 'conj'];
 const inputKeyList = ['KeyQ','KeyW','KeyE','KeyR'];
 
-// 별읽기 바탕 이미지 로드
+function loadAssets(assetPath) {
+	const loaded = assetPath.map((path)=>{
+		const img = new Image();
+		img.src = './assets/' + path
+		return img;
+	});
+	return loaded;
+}
+
+//이미지 로드
+
 const circleImage = new Image();
 circleImage.src = './assets/Wcircle.png';
 const arrowImage = new Image();
 arrowImage.src = './assets/sidearrow.png';
-const celesImage = [];
-celesImage[0] = new Image();
-celesImage[0].src = './assets/sun.png';
-celesImage[1] = new Image();
-celesImage[1].src = './assets/moon.png';
-celesImage[2] = new Image();
-celesImage[2].src = './assets/star.png';
 
-// 정사각형 이미지들 로드
-const skillImages = [];
-skillImages[0] = new Image();
-skillImages[0].src = './assets/Adina_Q.webp';
-skillImages[1] = new Image();
-skillImages[1].src = './assets/Adina_W.webp';
-skillImages[2] = new Image();
-skillImages[2].src = './assets/Adina_E.webp';
-skillImages[3] = new Image();
-skillImages[3].src = './assets/Adina_R.webp';
+const celesSrc = ['sun.png','moon.png','star.png'];
+const celesImage = loadAssets(celesSrc);
 
-const CskillImages = [];
-CskillImages[0] = new Image();
-CskillImages[0].src = './assets/Adina_QC.webp';
-CskillImages[1] = new Image();
-CskillImages[1].src = './assets/Adina_WC.webp';
-CskillImages[2] = new Image();
-CskillImages[2].src = './assets/Adina_EC.webp';
-CskillImages[3] = new Image();
-CskillImages[3].src = './assets/Adina_R.webp';
+const skillSrc = ['Adina_Q.webp','Adina_W.webp','Adina_E.webp','Adina_R.webp'];
+const skillImages = loadAssets(skillSrc);
+
+const CskillSrc = ['Adina_QC.webp','Adina_WC.webp','Adina_EC.webp','Adina_R.webp'];
+const CskillImages = loadAssets(CskillSrc);
 
 const nonExistSFX = ["sunr","moonr","starr"];
-const skillSFX = Array.from(Array(3), () => new Array(5));
-for (let i = 0; i < 3; i++) {
-	for (let j = 0; j < 5; j++) {
-		let fileName = orbs[i] + keyList[j]
-		if (!nonExistSFX.includes(fileName)){
-			skillSFX[i][j] = new Audio();
-			skillSFX[i][j].src = './assets/sfx/' + fileName + '.wav'
-		}
-	}
-}
+const skillSFX = orbs.map(orb =>
+	keyList.map(key => {
+			let fileName = orb + key;
+			if (!nonExistSFX.includes(fileName)) 
+				return new Audio('./assets/sfx/'+ fileName +'.wav');
+			else
+				return null;
+	})
+);
+
+//사운드 로드
+
 const rSFX = [];
 const conjrSFX = [];
-for (let i = 0; i < 4; i++) {
-	rSFX[i] = new Audio();
-	rSFX[i].src = './assets/sfx/r.wav'
-	conjrSFX[i] = new Audio();
-	conjrSFX[i].src = './assets/sfx/conjr.wav'
+for (let i = 0; i < 5; i++) {
+	rSFX[i] = new Audio('./assets/sfx/r.wav');
+	conjrSFX[i] = new Audio('./assets/sfx/conjr.wav');
 }
 
-const tickSFX = new Audio();
-tickSFX.src = './assets/sfx/tick.wav'
-
-const deathSFX = new Audio();
-deathSFX.src ='./assets/sfx/gameover.wav'
+const tickSFX = new Audio('./assets/sfx/tick.wav');
+const deathSFX = new Audio('./assets/sfx/gameover.wav');
 
 const voiceList = ['start1','start2','start3','conq','conw','cone','die1','die2','die3'];
 const voiceLines = [];
 for (let i = 0; i < 9; i++) {
-	voiceLines[i] = new Audio()
-	voiceLines[i].src = './assets/voice/' + voiceList[i] + '.mkv'
+	voiceLines[i] = new Audio('./assets/voice/' + voiceList[i] + '.mkv')
 }
 // 리소스 로드가 모두 완료된 후 실행
 
