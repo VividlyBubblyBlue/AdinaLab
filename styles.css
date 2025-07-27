@@ -123,7 +123,7 @@ uibttn {
   cursor: pointer;
   margin-left: 10px;
 }
-
+F
 .gameMessage.gameStart {
   display: none;
 }
@@ -158,7 +158,7 @@ uibttn.restart {
 }
 
 .slotContainer.cele {
-  width: 1000px;
+  width: 100%;
   text-align: center;
   margin-bottom: 40px;
 }
@@ -180,38 +180,45 @@ uibttn.restart {
 }
 
 .cbg {
-  width: 120px;
-  height: 120px;
+  width: 12%;
+  aspect-ratio: auto 1 / 1;
   overflow: visible;
 }
 
 .cbg img {
-  width: 120px;
-  height: 120px;
+  width: 100%;
+  height: 100%;
+}
+
+#arrow {
+  width: 10%;
+}
+
+#arrow img {
+  width: 80%;
+  aspect-ratio: 2 / 3;
 }
 
 #conjUI {
-  width: 260px;
-  height: 140px;
+  width: 25%;
+  aspect-ratio: 25 / 12;
   position: absolute;
 }
 
 #conjUI img {
-  height: 100%;
+  height: 110%;
   width: 100%;
-  top: 43%;
-  left: 47%;
   opacity: 0.5;
 }
 
 .cindi {
-  width: 120px;
-  height: 120px;
+  width: 12%;
+  aspect-ratio: auto 1 / 1;
 }
 
 .cindi img {
-  width: 80px;
-  height: 80px;
+  width: 70%;
+  height: 70%;
 
 }
 
@@ -264,16 +271,6 @@ uibttn.restart {
   position: absolute;
   opacity: 0.6;
   z-index: 2;
-}
-
-
-#arrow {
-  width: 100px;
-}
-
-#arrow img {
-  width: 80px;
-  height: 120px;
 }
 
 .s {
