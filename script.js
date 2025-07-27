@@ -55,7 +55,6 @@ const voiceLines = [];
 for (let i = 0; i < 9; i++) {
 	voiceLines[i] = new Audio('./assets/voice/' + voiceList[i] + '.mkv')
 }
-// 리소스 로드가 모두 완료된 후 실행
 
 var celestialSlots = [];
 var keySlots = [];
@@ -66,6 +65,7 @@ let isConjDone = false;
 let isReadingStar;
 let duringGame = false;
 let interval; //타이머 표기에 사용
+
 
 window.addEventListener('DOMContentLoaded', function () {
 	volumeProgress()
@@ -82,26 +82,26 @@ window.addEventListener('DOMContentLoaded', function () {
 		resetGame();
 		bootGame();
 	})
-});
-
-const skllbtn = document.querySelectorAll(".scool")
+	const skllbtn = document.querySelectorAll(".scool")
 	skllbtn.forEach(btn => {
-		btn.addEventListener("click", function(){
-			console.log(this.id[0]); 
-		});
+		btn.addEventListener("click", function() {
+			const btnId = this.id[0];
+			inputHandler(btnId);
+		})
 	});
-	
-window.addEventListener("keydown", (e) => {
-	inputHandler(e);
+	window.addEventListener("keydown", (e) => {
+		const keyName = keyList[inputKeyList.indexOf(e.code)];
+		inputHandler(keyName);
+	})
 });
 
-function inputHandler(e) {
-	const input = keyList[inputKeyList.indexOf(e.code)];
-	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame) {
-		changeSlot(input);
+
+function inputHandler(key) {
+	if (key == 'r' && celestialSlots[1] != undefined && duringGame) {
+		changeSlot(key);
 		updateGame();
-	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
-		useSlot(input);
+	} else if (keyList.includes(key) && !isReadingStar && duringGame) {
+		useSlot(key);
 		updateGame();
 	}
 }
