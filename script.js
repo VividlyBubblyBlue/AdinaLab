@@ -69,7 +69,7 @@ let interval; //타이머 표기에 사용
 
 window.addEventListener('DOMContentLoaded', function () {
 	volumeProgress();
-	rrandomPortrait();
+	randomPortrait();
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -117,7 +117,8 @@ function getRandomInt(min, max) {
 
 function randomPortrait() {
 	const p = document.querySelector(".portrait img")
-	p.src = "./assets/Adina_portrait"+ getRandomInt(1,2)+".png"
+	p.src = "./assets/Adina_portrait"+ getRandomInt(1,3)+".png"
+	console.log(p.src);
 }
 
 function playSound(soundElement) {
