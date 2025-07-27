@@ -455,7 +455,7 @@ const translations = {
     github: "Github"
   },
   kr: {
-    header: "바우게 연구소(이제 모바일 터치 지원함)"
+    header: "바우게 연구소(이제 모바일 터치 지원함)",
     notimer: "연습 모드: 타이머X",
     nolock: "스킬잠김X",
     nosunc: "해컨(Q)",
