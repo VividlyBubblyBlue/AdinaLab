@@ -118,7 +118,6 @@ function getRandomInt(min, max) {
 function randomPortrait() {
 	const p = document.querySelector(".portrait img")
 	p.src = "./assets/Adina_portrait"+ getRandomInt(1,3)+".png"
-	console.log(p.src);
 }
 
 function playSound(soundElement) {
