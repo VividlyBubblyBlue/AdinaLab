@@ -421,7 +421,7 @@ function gameOver() {
 
 const translations = {
   zh: {
-    header: "迅捷蟹研究所",
+    header: "迅捷蟹研究所 (移动触控支持)",
     notimer: "練習模式： 沒有計時",
     nolock: "沒有技能鎖定",
     nosunc: "雙太陽(Q)",
@@ -438,7 +438,7 @@ const translations = {
     github: "Github"
   },
   en: {
-    header: "Scuttle Labatory",
+    header: "Scuttle Labatory(w/ mobile touch support)",
     notimer: "Practice Mode: No Timer",
     nolock: "No Skill Lock",
     nosunc: "Sun x 2(Q)",
@@ -455,7 +455,7 @@ const translations = {
     github: "Github"
   },
   kr: {
-    header: "바우게 연구소", 
+    header: "바우게 연구소(이제 모바일 터치 지원함)"
     notimer: "연습 모드: 타이머X",
     nolock: "스킬잠김X",
     nosunc: "해컨(Q)",
