@@ -84,16 +84,27 @@ window.addEventListener('DOMContentLoaded', function () {
 	})
 });
 
+const skllbtn = document.querySelectorAll(".scool")
+	skllbtn.forEach(btn => {
+		btn.addEventListener("click", function(){
+			console.log(this.id[0]); 
+		});
+	});
+	
 window.addEventListener("keydown", (e) => {
+	inputHandler(e);
+});
+
+function inputHandler(e) {
 	const input = keyList[inputKeyList.indexOf(e.code)];
-	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
+	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame) {
 		changeSlot(input);
-		updateGame(); 
+		updateGame();
 	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
 		useSlot(input);
-		updateGame(); 
+		updateGame();
 	}
-});
+}
 
 function sleep(ms) {
 	return new Promise((r) => setTimeout(r, ms));
@@ -360,7 +371,7 @@ function updateGame() {
 		} else if (document.getElementById("nolock").checked) {
 			toggleCoolIcons(false);
 		} else {
-			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
+			try{document.getElementById(keySlots[i] + "xi").style.visibility = "visible";}
 			catch{}
 		}
 	}
