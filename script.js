@@ -55,7 +55,6 @@ const voiceLines = [];
 for (let i = 0; i < 9; i++) {
 	voiceLines[i] = new Audio('./assets/voice/' + voiceList[i] + '.mkv')
 }
-// 리소스 로드가 모두 완료된 후 실행
 
 var celestialSlots = [];
 var keySlots = [];
@@ -67,8 +66,10 @@ let isReadingStar;
 let duringGame = false;
 let interval; //타이머 표기에 사용
 
+
 window.addEventListener('DOMContentLoaded', function () {
-	volumeProgress()
+	volumeProgress();
+	rrandomPortrait();
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -82,18 +83,29 @@ window.addEventListener('DOMContentLoaded', function () {
 		resetGame();
 		bootGame();
 	})
+	const skllbtn = document.querySelectorAll(".scool")
+	skllbtn.forEach(btn => {
+		btn.addEventListener("click", function() {
+			const btnId = this.id[0];
+			inputHandler(btnId);
+		})
+	});
+	window.addEventListener("keydown", (e) => {
+		const keyName = keyList[inputKeyList.indexOf(e.code)];
+		inputHandler(keyName);
+	})
 });
 
-window.addEventListener("keydown", (e) => {
-	const input = keyList[inputKeyList.indexOf(e.code)];
-	if (e.code == 'KeyR' && celestialSlots[1] != undefined && duringGame ) {
-		changeSlot(input);
-		updateGame(); 
-	} else if (inputKeyList.includes(e.code) && !isReadingStar && duringGame) {
-		useSlot(input);
-		updateGame(); 
+
+function inputHandler(key) {
+	if (key == 'r' && celestialSlots[1] != undefined && duringGame) {
+		changeSlot(key);
+		updateGame();
+	} else if (keyList.includes(key) && !isReadingStar && duringGame) {
+		useSlot(key);
+		updateGame();
 	}
-});
+}
 
 function sleep(ms) {
 	return new Promise((r) => setTimeout(r, ms));
@@ -101,6 +113,11 @@ function sleep(ms) {
 
 function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
+}
+
+function randomPortrait() {
+	const p = document.querySelector(".portrait img")
+	p.src = "./assets/Adina_portrait"+ getRandomInt(1,2)+".png"
 }
 
 function playSound(soundElement) {
@@ -138,7 +155,7 @@ function resetGame() {
 	document.querySelector(".scoreText").innerText = score;
 	document.querySelector(".timeBar").classList.remove("running");
 	document.querySelector("#conjUI img").src= "./assets/conjUI.png"
-	document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
+	randomPortrait();
 	resetIcons();
 }
 
@@ -360,7 +377,7 @@ function updateGame() {
 		} else if (document.getElementById("nolock").checked) {
 			toggleCoolIcons(false);
 		} else {
-			try{document.getElementById(keySlots[i] + "x").style.visibility = "visible";}
+			try{document.getElementById(keySlots[i] + "xi").style.visibility = "visible";}
 			catch{}
 		}
 	}
@@ -410,7 +427,7 @@ function gameOver() {
 
 const translations = {
   zh: {
-    header: "迅捷蟹研究所",
+    header: "迅捷蟹研究所 (移动触控支持)",
     notimer: "練習模式： 沒有計時",
     nolock: "沒有技能鎖定",
     nosunc: "雙太陽(Q)",
@@ -427,7 +444,7 @@ const translations = {
     github: "Github"
   },
   en: {
-    header: "Scuttle Labatory",
+    header: "Scuttle Labatory(w/ mobile touch support)",
     notimer: "Practice Mode: No Timer",
     nolock: "No Skill Lock",
     nosunc: "Sun x 2(Q)",
@@ -444,7 +461,7 @@ const translations = {
     github: "Github"
   },
   kr: {
-    header: "바우게 연구소", 
+    header: "바우게 연구소(이제 모바일 터치 지원함)",
     notimer: "연습 모드: 타이머X",
     nolock: "스킬잠김X",
     nosunc: "해컨(Q)",
