@@ -296,7 +296,6 @@ uibttn.restart {
   width: 90px;
   height: 90px;
   margin: 10px 10px;
-  visibility: hidden;
 }
 
 .scool img {
@@ -306,6 +305,7 @@ uibttn.restart {
   border-radius: 2px;
   position: absolute;
   transform: translate(-50%, -50%);
+  visibility: hidden;
 }
 
 .vibration {
