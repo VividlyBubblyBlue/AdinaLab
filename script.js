@@ -68,7 +68,8 @@ let interval; //타이머 표기에 사용
 
 
 window.addEventListener('DOMContentLoaded', function () {
-	volumeProgress()
+	volumeProgress();
+	rrandomPortrait();
 	document.querySelector(".start").addEventListener('click', function () {
 		bootGame();
 	})
@@ -114,6 +115,11 @@ function getRandomInt(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function randomPortrait() {
+	const p = document.querySelector(".portrait img")
+	p.src = "./assets/Adina_portrait"+ getRandomInt(1,2)+".png"
+}
+
 function playSound(soundElement) {
 	const soundType = soundElement.src;
 	if (soundType.includes('voice') && !document.getElementById("novoice").checked) {
@@ -149,7 +155,7 @@ function resetGame() {
 	document.querySelector(".scoreText").innerText = score;
 	document.querySelector(".timeBar").classList.remove("running");
 	document.querySelector("#conjUI img").src= "./assets/conjUI.png"
-	document.querySelector(".portrait img").src = "./assets/Adina_portrait.png";
+	randomPortrait();
 	resetIcons();
 }
 
