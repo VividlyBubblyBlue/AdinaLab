@@ -34,12 +34,16 @@
 </div>
   <div class="game-container">
     <h1 data-i18n="header">바우게 연구소(이제 모바일 터치 지원함)</h1>
-    <div>
+    <details open class="options">
+      <summary>options</summary>
+      <div>
       <div class="lcheckboxs">
-        <label for="notimer" data-i18n="notimer">연습 모드: 타이머X </label>
-        <input type="checkbox" id="notimer" name="notimer" checked>
-        <label for="nolock" data-i18n="nolock">스킬잠김X</label>
-        <input type="checkbox" id="nolock" name="nolock">
+        <div>
+          <label for="notimer" data-i18n="notimer">연습 모드: 타이머X </label>
+          <input type="checkbox" id="notimer" name="notimer" checked>
+          <label for="nolock" data-i18n="nolock">스킬잠김X</label>
+          <input type="checkbox" id="nolock" name="nolock">
+        </div>
         <div>
           <input type="checkbox" id="nosunc" name="noc" value="q" checked>
           <label for="nosunc" data-i18n="nosunc">해컨(Q)</label>
@@ -53,10 +57,12 @@
         <label for="volume" data-i18n="volume">볼륨</label>
         <input type="range" id="volume" name="volume" value="50" oninput="volumeProgress()">
         <div>
-          <input type="checkbox" id="novoice" name="nos" value="voice" checked>
-          <label for="nosunc" data-i18n="nos">보이스</label>
-          <input type="checkbox" id="nosfx" name="nos" value="sfx" checked>
-          <label for="nomoonc" data-i18n="nosfx">효과음</label>
+          <div>
+            <input type="checkbox" id="novoice" name="nos" value="voice" checked>
+            <label for="nosunc" data-i18n="nos">보이스</label>
+            <input type="checkbox" id="nosfx" name="nos" value="sfx" checked>
+            <label for="nomoonc" data-i18n="nosfx">효과음</label>
+          </div>
           <div>
             <button onclick="translatePage('kr')">Korean</button>
             <button onclick="translatePage('en')">English</button>
@@ -65,6 +71,7 @@
         </div>
       </div>
     </div>
+    </details>
     <div class="root" >
       <div class="gameMessage">
         <uibttn class="start" data-i18n="start">
@@ -145,7 +152,7 @@
   </details>
     <footer>
       <hr/>
-      <div>Ver 2.4</div>
+      <div>Ver 2.4.1</div>
     </footer>
     <script src="script.js"></script>
 </body>

@@ -37,8 +37,8 @@ img {
 }
 
 h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
+  font-size: 4vmin;
+  margin-bottom: 2vmin;
 }
 
 
@@ -52,6 +52,15 @@ h1 {
   border-radius: 1rem;
   box-shadow: 0 0 1rem rgba(0, 0, 0, .1);
   text-align: center;
+}
+
+.options summary {
+  width:15%;
+  font-size: 3vmin;
+  background-color: azure;
+  border: 2px soild #222;
+  border-radius: 10%;
+  cursor: pointer;
 }
 
 .lcheckboxs {
@@ -72,7 +81,7 @@ h1 {
   -webkit-appearance: none;
   appearance: none; 
   width: 100%;
-  /*margin-bottom: 20px;*/
+  margin-bottom: 1vw;
   cursor: pointer;
   outline: none;
   border-radius: 15px;
