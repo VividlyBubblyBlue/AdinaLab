@@ -127,7 +127,11 @@ function playSound(soundElement) {
 	} else if (soundType.includes('sfx') && !document.getElementById("nosfx").checked) {
 		return;
 	}
-	soundElement.volume = document.getElementById("volume").value / 100;
+	const volume = document.getElementById("volume").value
+	if (volume == 0) {
+		return;
+	}
+	soundElement.volume = volume / 100;
 	soundElement.play();
 }
 

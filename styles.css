@@ -84,10 +84,10 @@ h1 {
   appearance: none; 
   height: 35px;
   width: 35px;
-  background: transparent;
+  background-color: #ccc;
   background-image: url("./assets/themoon.png");
   background-size: cover;
-  border-radius: 50%;
+  border-radius: 100%;
   transition: .2s ease-in-out
 }
 
