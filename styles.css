@@ -154,14 +154,13 @@ uibttn.restart {
 }
 
 .celestialBox {
-  margin: 30px 0px;
+  margin: 3% 0%;
   position: relative;
 }
 
 .slotContainer.cele {
   width: 100%;
   text-align: center;
-  margin-bottom: 40px;
 }
 
 #indicate {
@@ -224,7 +223,6 @@ uibttn.restart {
 }
 
 .ERUIBox {
-  margin: 0px 40px;
   background-color: #ababab;
   border-radius: 10px;
   display: flex;
@@ -239,7 +237,7 @@ uibttn.restart {
   margin-left: 4%;
   position: relative;
   background-color: #FFFFFF;
-  outline: 12px solid #FFFFFF;
+  outline: 1.2vw solid #FFFFFF;
   border-radius: 70%;
   overflow: hidden;
 }
@@ -391,7 +389,7 @@ uibttn.restart {
   margin-top: 4%;
   height: 30%;
   width: 100%;
-  font-size: 20px;
+  font-size: 1.5vw;
   font-family: 'Teko', sans-serif;
 }
 
@@ -427,7 +425,7 @@ uibttn.restart {
   line-height: 20%;
   width: 100%;
   background-color: aqua;
-  font-size: 6px;
+  font-size: 1vw;
 }
 
 .rightContainer {
@@ -443,38 +441,41 @@ uibttn.restart {
   height: 65%;
   background-color: #ccc;
   position: relative;
+  font-size: 1vw;
 }
 
 .bonus button {
   width: 30%;
-  display: none;
+  height: 70%;
+  position: relative;
   border: 0px;
   background-color: rgba(0,0,0,0);
   z-index: 2;
 }
 
 .bonus img {
-  width: 40%;
+  width: 130%;
 }
 
 .point {
   height: 23%;
   margin: 4.5% 0%;
-  position: relative;
   display: flex;
   flex-direction: row;
+  position: relative;
   background-color: cadetblue;
-  font-size: 36px;
+  font-size: 3vw;
   font-family: 'Teko', sans-serif;
 }
 
-.point img {
-  width: 25%;
+.credit {
+  width: 20%;
   aspect-ratio: 1 / 1;
   position: relative;
-  top: 0%;
-  left: 0%;
-  transform: unset;
+}
+
+.credit img {
+  width: 100%;
 }
 
 .scoreText {
