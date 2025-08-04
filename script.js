@@ -214,10 +214,10 @@ async function fillSlot(amount, callback) {
 		});
 		availableOrb = orbs.filter(item => !checkedOrb.includes(item)); //일단 가능한 천체 목록 생성
 		if (indexi == 4) { // 그런데 6번칸에는 1,2번칸과 다른 천체가 들어가야만 함.
-			if (!queuedSlots.includes(queuedSlots[0])) { //... 그러므로 저장(1번)칸에 있는 천체는 적어도 5번칸에는 반드시 나와야 함.
-				availableOrb = queuedSlots[0]
-			} else if (!queuedSlots.includes(queuedSlots[1])) { // 혹은 2번칸에 있는 천체도 적어도 5번칸에선 나와야 함.
-				availableOrb = queuedSlots[1]
+			if (occurrences[queuedSlots[0]] == 1) { //... 그러므로 저장(1번)칸에 있는 천체는 적어도 5번칸에는 반드시 나와야 함.
+				availableOrb = [queuedSlots[0]];
+			} else if (occurrences[queuedSlots[1]] == 1) { // 혹은 2번칸에 있는 천체도 적어도 5번칸에선 나와야 함.
+				availableOrb = [queuedSlots[1]];
 			}
 		}
 		//천체 선정
